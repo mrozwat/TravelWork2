@@ -27,9 +27,9 @@ render(menuBlock,menu(),RenderPosition.BEFOREEND);
 render(filterBlock,filter(),RenderPosition.BEFOREEND);
 //mb nead change template
 
-for (let i=0; i<TravelPointCount;i++){
-  render(Travelpoint,travelPoint(),RenderPosition.BEFOREEND);//mb nead change
-}
+
+  render(Travelpoint,travelPoint(),RenderPosition.BEFOREEND);
+
 
 // render(addNewBlock,addNew(),RenderPosition.BEFOREEND);
 

@@ -5,10 +5,15 @@ const dayjs = require('dayjs');
 console.log(testData)
 
 
+
+
 function travelPoint()
 {
-  let i=0//deteat
-  return`<li class="trip-events__item">
+  let travelPointHtml = ``;
+
+  for (let i=0;i<testData.length;i++){
+
+    travelPointHtml+=`<li class="trip-events__item">
 <div class="event">
   <time class="event__date" datetime="${testData[i].date_from}">MAR 18</time>
   <div class="event__type">
@@ -40,6 +45,11 @@ function travelPoint()
     <span class="visually-hidden">Open event</span>
   </button>
 </div>
-</li>`;}
+</li>`;
+  }
+  
+  return travelPointHtml
+}
+
 
 export {travelPoint};
