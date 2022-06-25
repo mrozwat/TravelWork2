@@ -6,7 +6,7 @@ import { sort } from './view/sort-Template.js';
 import { addNew } from './view/Add-New-Template.js';
 import { edit } from './view/edit-Template.js';
 import { travelPoint } from './view/travel-Point_Template.js';
-import   './mock/test-data.js'
+import   {testData}from'./mock/test-data.js'
 
 
 
@@ -34,4 +34,4 @@ for (let i=0; i<TravelPointCount;i++){
 // render(addNewBlock,addNew(),RenderPosition.BEFOREEND);
 
 
-
+console.log(testData)
