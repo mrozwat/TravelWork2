@@ -21,7 +21,7 @@ function travelPoint()
 <div class="event">
   <time class="event__date" datetime="${testData[i].date_from}">${dayjs(testData[i].date_from).format('MMM D')}</time>
   <div class="event__type">
-    <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
+    <img class="event__type-icon" width="42" height="42" src="img/icons/${testData[i].type.toLowerCase()}.png" alt="Event type icon">
   </div>
   <h3 class="event__title">${testData[i].destination.name}</h3>
   <div class="event__schedule">
