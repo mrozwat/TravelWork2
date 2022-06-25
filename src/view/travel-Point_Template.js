@@ -28,7 +28,7 @@ function travelPoint()
   </p>
   <h4 class="visually-hidden">Offers:</h4>
   <ul class="event__selected-offers">
-  ${offersTemplate()}
+  ${offersTemplate(i)}
   </ul>
   <button class="event__favorite-btn event__favorite-btn--active" type="button">
     <span class="visually-hidden">Add to favorite</span>

@@ -1,14 +1,14 @@
 import   {testData}from'../mock/test-data.js'
 
-function offersTemplate (){
-    let i=0;//perenesti v argument
+function offersTemplate (i){
+    
     let offersHTML = '';
     for (let j =0;j<testData[i].offers.length;j++){
         offersHTML +=`
     <li class="event__offer">
-      <span class="event__offer-title">${testData[1].offers[j].title}</span>
+      <span class="event__offer-title">${testData[i].offers[j].title}</span>
       &plus;&euro;&nbsp;
-      <span class="event__offer-price">${testData[1].offers[j].price}</span>
+      <span class="event__offer-price">${testData[i].offers[j].price}</span>
     </li>
   `;
     }
