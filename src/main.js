@@ -33,5 +33,3 @@ for (let i=0; i<TravelPointCount;i++){
 
 // render(addNewBlock,addNew(),RenderPosition.BEFOREEND);
 
-
-console.log(testData)

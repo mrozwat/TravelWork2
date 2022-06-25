@@ -33,4 +33,4 @@ return testPointArray;
 
 let testData = getTestPoint();
 
-export{testData};
+export {testData};
