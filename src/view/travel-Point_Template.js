@@ -1,8 +1,11 @@
 import   {testData}from'../mock/test-data.js'
 import { offersTemplate } from './offersTemplate.js';
 const dayjs = require('dayjs');
+var relativeTime = require('dayjs/plugin/relativeTime')
+dayjs.extend(relativeTime)
 
 console.log(testData)
+
 
 
 
@@ -12,24 +15,25 @@ function travelPoint()
   let travelPointHtml = ``;
 
   for (let i=0;i<testData.length;i++){
-
+    let dateFrom = dayjs(testData[i].date_from);
+    let dateTo = dayjs(testData[i].date_to);
     travelPointHtml+=`<li class="trip-events__item">
 <div class="event">
-  <time class="event__date" datetime="${testData[i].date_from}">MAR 18</time>
+  <time class="event__date" datetime="${testData[i].date_from}">${dayjs(testData[i].date_from).format('MMM D')}</time>
   <div class="event__type">
     <img class="event__type-icon" width="42" height="42" src="img/icons/taxi.png" alt="Event type icon">
   </div>
   <h3 class="event__title">${testData[i].destination.name}</h3>
   <div class="event__schedule">
     <p class="event__time">
-      <time class="event__start-time" datetime="2019-03-18T10:30">10:30</time>
+      <time class="event__start-time" datetime="${testData[i].date_from}">${dayjs(testData[i].date_from).format('H:mm')}</time>
       &mdash;
-      <time class="event__end-time" datetime="2019-03-18T11:00">11:00</time>
+      <time class="event__end-time" datetime="${testData[i].date_to}">${dayjs(testData[i].date_to).format('H:mm')}</time>
     </p>
-    <p class="event__duration">30M</p>
+    <p class="event__duration">${dayjs(dateFrom).from(dateTo, true)}</p>
   </div>
   <p class="event__price">
-    &euro;&nbsp;<span class="event__price-value">20</span>
+    &euro;&nbsp;<span class="event__price-value">${testData[i].base_price}</span>
   </p>
   <h4 class="visually-hidden">Offers:</h4>
   <ul class="event__selected-offers">
