@@ -1,3 +1,7 @@
+li {
+  list-style-type: none; /* Убираем маркеры */
+ }
+ 
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;

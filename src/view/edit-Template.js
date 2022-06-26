@@ -1,6 +1,7 @@
 import   {testData}from'../mock/test-data.js';
 import {offerType} from './edit-emplate-offers-types.js'
 import { offerListToEdit } from './edit-template-offers-list.js';
+import {editPhoto} from './edit-photo.js'
 const dayjs = require('dayjs');
 
 function edit (){
@@ -65,7 +66,12 @@ function edit (){
   <section class="event__section  event__section--destination">
     <h3 class="event__section-title  event__section-title--destination">Destination</h3>
     <p class="event__destination-description">${testData[i].destination.description}</p>
-  </section>
+    <div class="event__photos-container">
+    <div class="event__photos-tape">
+      ${editPhoto(i)}
+    </div>
+  </div>
+    </section>
 </section>
 </form>`;
 return editHtml;
