@@ -21,6 +21,7 @@ const editBlock = document.querySelector('.trip-events');//mb nead change
 const Travelpoint = document.querySelector('.trip-events');//mb nead change
 
 //contaner,html,position render function
+
 render(sortBlock,sort(),RenderPosition.BEFOREEND);
 render(editBlock,edit(),RenderPosition.BEFOREEND);
 render(menuBlock,menu(),RenderPosition.BEFOREEND);
