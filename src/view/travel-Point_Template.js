@@ -1,22 +1,19 @@
-import   {testData}from'../mock/test-data.js'
-import { offersTemplate } from './offersTemplate.js';
+import   {testData}from'../mock/test-data.js';
+import { offersTemplate } from './travelPoint/offersTemplate.js';
 const dayjs = require('dayjs');
-var relativeTime = require('dayjs/plugin/relativeTime')
-dayjs.extend(relativeTime)
+const relativeTime = require('dayjs/plugin/relativeTime');
+dayjs.extend(relativeTime);
 
-console.log(testData)
-
-
-
+console.log(testData);
 
 
 function travelPoint()
 {
-  let travelPointHtml = ``;
+  let travelPointHtml = '';
 
   for (let i=0;i<testData.length;i++){
-    let dateFrom = dayjs(testData[i].date_from);
-    let dateTo = dayjs(testData[i].date_to);
+    const dateFrom = dayjs(testData[i].date_from);
+    const dateTo = dayjs(testData[i].date_to);
     travelPointHtml+=`<li class="trip-events__item">
 <div class="event">
   <time class="event__date" datetime="${testData[i].date_from}">${dayjs(testData[i].date_from).format('MMM D')}</time>
@@ -51,8 +48,8 @@ function travelPoint()
 </div>
 </li>`;
   }
-  
-  return travelPointHtml
+
+  return travelPointHtml;
 }
 
 

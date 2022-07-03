@@ -1,30 +1,30 @@
-import   {testData}from'../mock/test-data.js';
+import   {testData}from'../../mock/test-data.js';
 
 
 function offerType (i){
-         let Taxi = ''; 
-         let Bus = ''; 
-         let Train = ''; 
-         let Ship = ''; 
-         let Drive = ''; 
-         let Flight = ''; 
-         let Checkin = '';
-         let Sightseeing = ''; 
-         let Restaurant = ''; 
-    switch (testData[i].type){
-        case "Taxi":  Taxi = 'checked';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';  break;
-        case "Bus":  Bus = 'checked';Taxi = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
-        case "Train":  Train = 'checked';Taxi = '';Bus = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
-        case "Ship":  Ship = 'checked'; Taxi = '';Bus = '';Train = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';break;
-        case "Drive":  Drive = 'checked'; Taxi = '';Bus = '';Train = '';Ship = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';break;
-        case "Flight":  Flight = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
-        case "Checkin":  Checkin = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Sightseeing = '';Restaurant = ''; break;
-        case "Sightseeing":  Sightseeing = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Restaurant = ''; break;
-        case "Restaurant":  Restaurant = 'checked'; Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';break;
-    } 
+  let Taxi = '';
+  let Bus = '';
+  let Train = '';
+  let Ship = '';
+  let Drive = '';
+  let Flight = '';
+  let Checkin = '';
+  let Sightseeing = '';
+  let Restaurant = '';
+  switch (testData[i].type){
+    case 'Taxi':  Taxi = 'checked';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';  break;
+    case 'Bus':  Bus = 'checked';Taxi = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
+    case 'Train':  Train = 'checked';Taxi = '';Bus = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
+    case 'Ship':  Ship = 'checked'; Taxi = '';Bus = '';Train = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';break;
+    case 'Drive':  Drive = 'checked'; Taxi = '';Bus = '';Train = '';Ship = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';break;
+    case 'Flight':  Flight = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
+    case 'Checkin':  Checkin = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Sightseeing = '';Restaurant = ''; break;
+    case 'Sightseeing':  Sightseeing = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Restaurant = ''; break;
+    case 'Restaurant':  Restaurant = 'checked'; Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';break;
+  }
 
 
-    let offerHtml = `<fieldset class="event__type-group">
+  const offerHtml = `<fieldset class="event__type-group">
     <legend class="visually-hidden">Event type</legend>
 
     <div class="event__type-item">
@@ -73,7 +73,7 @@ function offerType (i){
     </div>
   </fieldset>`;
 
-return offerHtml
+  return offerHtml;
 }
 
-export{offerType}
+export{offerType};

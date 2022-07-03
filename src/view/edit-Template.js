@@ -1,12 +1,12 @@
 import   {testData}from'../mock/test-data.js';
-import {offerType} from './edit-emplate-offers-types.js'
-import { offerListToEdit } from './edit-template-offers-list.js';
-import {editPhoto} from './edit-photo.js'
+import {offerType} from '../view/edit/edit-emplate-offers-types.js';
+import { offerListToEdit } from '../view/edit/edit-template-offers-list.js';
+import {editPhoto} from './edit/edit-photo.js';
 const dayjs = require('dayjs');
 
 function edit (){
-  let i =0;//deleat, perenesti v argument funcii
-  let editHtml =`<form class="event event--edit" action="#" method="post">
+  const i =0;//deleat, perenesti v argument funcii
+  const editHtml =`<form class="event event--edit" action="#" method="post">
 <header class="event__header">
   <div class="event__type-wrapper">
     <label class="event__type  event__type-btn" for="event-type-toggle-1">
@@ -74,6 +74,6 @@ function edit (){
     </section>
 </section>
 </form>`;
-return editHtml;
+  return editHtml;
 }
 export {edit};

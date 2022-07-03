@@ -1,4 +1,4 @@
-import { InfoAbautTrip } from '../view/info-about-trip.js';
+import { InfoAbautTrip } from '../view/menu/info-about-trip';
 
 function menu (){
   return `  
