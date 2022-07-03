@@ -17,9 +17,9 @@ function InfoAbautTrip () {
 function tripCityList () {
   let cityList ='';
   if (testData.length<=3) {
-    cityList = `${`${testData[0].destination.name||``} ${testData[1].destination.name||``} ${testData[2].destination.name||``}`}`;
+    cityList = `${`${testData[0].destination.name} ${testData[1].destination.name} ${testData[2].destination.name}`}`;
   }
-  else { cityList = `${`${testData[0].destination.name||``}...${testData[2].destination.name||``}`}`;}
+  else { cityList = `${`${testData[0].destination.name}...${testData[2].destination.name}`}`;}
   return cityList;
 }
 
