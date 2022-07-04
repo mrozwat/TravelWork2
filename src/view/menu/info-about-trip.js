@@ -15,12 +15,29 @@ function InfoAbautTrip () {
 }
 
 function tripCityList () {
+  const length = testData.length;
   let cityList ='';
-  if (testData.length<=3) {
+
+  if (length===0) {cityList =='';}
+
+  else if (length===1 && testData[0].destination.name!=='' ) {
+    cityList = `${`${testData[0].destination.name} `}`;
+  }
+
+
+  else if (length===2 && testData[0].destination.name!=='' && testData[1].destination.name!=='') {
+    cityList = `${`${testData[0].destination.name} ${testData[1].destination.name}`}`;
+  }
+
+  else if (length===3 && testData[0].destination.name!=='' && testData[1].destination.name!=='' && testData[2].destination.name!=='') {
     cityList = `${`${testData[0].destination.name} ${testData[1].destination.name} ${testData[2].destination.name}`}`;
   }
-  else { cityList = `${`${testData[0].destination.name}...${testData[2].destination.name}`}`;}
+
+  else if (length>3 && testData[0].destination.name!=='') { cityList = `${`${testData[0].destination.name}...${testData[2].destination.name}`}`;}
+
+
   return cityList;
+
 }
 
 
