@@ -1,9 +1,6 @@
-import { InfoAbautTrip } from '../view/menu/info-about-trip';
-
 function menu (){
   return `  
   <div class="trip-main">
-  ${InfoAbautTrip()}
     <div class="trip-main__trip-controls  trip-controls">
       <div class="trip-controls__navigation">
         <h2 class="visually-hidden">Switch trip view</h2>

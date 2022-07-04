@@ -76,4 +76,5 @@ function offerType (i){
   return offerHtml;
 }
 
+
 export{offerType};

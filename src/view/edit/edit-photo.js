@@ -10,4 +10,15 @@ function editPhoto(i) {
   return imgHtml;
 }
 
-export {editPhoto};
+function description (i) {
+  let description ='<h3 class="event__section-title  event__section-title--destination">Destination</h3>';
+
+  if (testData[i].destination.description!=`` ||testData[i].destination.pictures.length !=0 ) {
+    description+=`<p class="event__destination-description">${testData[i].destination.description}</p>`;
+  }
+  else {description='';}
+
+  return description;
+}
+
+export {editPhoto,description};

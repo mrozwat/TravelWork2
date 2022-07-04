@@ -10,7 +10,7 @@ const pointid = setid();
 
 function getTestPoint (){
   const testPointArray =[];
-  const random = getRandomPositiveInteger(1,25);
+  const random = getRandomPositiveInteger(0,25);
   for (let i=0;i<random;i++){
     const pointTest ={
       'id': pointid(),
