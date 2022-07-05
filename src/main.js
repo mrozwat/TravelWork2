@@ -8,17 +8,31 @@ import  travelPoint  from './view/travel-Point_Template.js';
 import { InfoAbautTrip } from '../src/view/menu/info-about-trip.js';
 import { testData } from './mock/test-data.js';
 
+
+const data =testData;
+console.log(data);
+
 //position for new block
 const menuBlock =document.querySelector('.trip-controls__navigation');
 const filterBlock =document.querySelector('.trip-controls__filters');
 const sortBlock =document.querySelector('.trip-events');
 
 // render function
-if (testData.length>0) {render(menuBlock,InfoAbautTrip(),RenderPosition.BEFOREEND);}
 renderElement(sortBlock,new SortElement().element,RenderPosition.BEFOREEND);
-if (testData.length>0) {renderElement(sortBlock,new editElement(testData[1]).element,RenderPosition.BEFOREEND);}
+
+if (data.length>0) {
+  render(menuBlock,InfoAbautTrip(),RenderPosition.BEFOREEND);}
+
+
+if (data.length>0) {
+  data.forEach((data)=> {
+    renderElement(sortBlock,new editElement(data).element,RenderPosition.BEFOREEND);
+    renderElement(sortBlock, new travelPoint(data).element,RenderPosition.BEFOREEND);
+  });
+}
+
+
 renderElement(menuBlock,new menuElement().element,RenderPosition.BEFOREEND);
 renderElement(filterBlock,new filtersElement().element,RenderPosition.BEFOREEND);
 
-renderElement(sortBlock, new travelPoint(testData[1]).element,RenderPosition.BEFOREEND);
 

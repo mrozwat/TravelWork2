@@ -5,7 +5,6 @@ const relativeTime = require('dayjs/plugin/relativeTime');
 dayjs.extend(relativeTime);
 
 
-
 export default  class travelPointElement {
   #element = null;
   #data = null;
