@@ -229,12 +229,15 @@ main {
   opacity: 0.8; }
 
 .trip-info__cost {
-  width: 170px;
+  position: relative;
+  top: 80px;
+  left: 400px;
+  width: 100%;
   margin: 0 0 0 auto;
   font-weight: 700;
   font-size: 21px;
   line-height: 25px;
-  text-align: center; }
+  text-align: right; }
 
 .trip-controls__trip-tabs {
   margin-bottom: 9px; }

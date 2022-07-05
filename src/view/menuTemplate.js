@@ -1,6 +1,26 @@
+import { createElement } from '../render/render.js';
+
+ export default  class menuElement {
+  #element = null;
+
+  get element () {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  get template () { return menu();}
+
+  removeElement () {
+    this.#element=null;
+  }
+}
+
+
+
 function menu (){
-  return `  
-  <div class="trip-main">
+  return `<div class="trip-main">
     <div class="trip-main__trip-controls  trip-controls">
       <div class="trip-controls__navigation">
         <h2 class="visually-hidden">Switch trip view</h2>
@@ -10,4 +30,4 @@ function menu (){
       </nav>
   </div>`;}
 
-export{menu};
+

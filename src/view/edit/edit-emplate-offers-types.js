@@ -1,7 +1,4 @@
-import   {testData}from'../../mock/test-data.js';
-
-
-function offerType (i){
+function offerType (data){
   let Taxi = '';
   let Bus = '';
   let Train = '';
@@ -11,7 +8,7 @@ function offerType (i){
   let Checkin = '';
   let Sightseeing = '';
   let Restaurant = '';
-  switch (testData[i].type){
+  switch (data.type){
     case 'Taxi':  Taxi = 'checked';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';  break;
     case 'Bus':  Bus = 'checked';Taxi = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
     case 'Train':  Train = 'checked';Taxi = '';Bus = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;

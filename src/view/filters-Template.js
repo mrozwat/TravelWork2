@@ -1,3 +1,24 @@
+import { createElement } from '../render/render.js';
+
+ export default class filtersElement {
+  #element = null;
+
+  get element () {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  get template () { return filter();}
+
+  removeElement () {
+    this.#element=null;
+  }
+}
+
+
+
 function filter (){
   return `<div class="trip-controls__filters">
     <h2 class="visually-hidden">Filter events</h2>
@@ -21,5 +42,5 @@ function filter (){
     </form>
   </div>`;}
 
-export{filter};
+
 

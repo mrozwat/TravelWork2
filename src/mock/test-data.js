@@ -10,7 +10,7 @@ const pointid = setid();
 
 function getTestPoint (){
   const testPointArray =[];
-  const random = getRandomPositiveInteger(0,25);
+  const random = getRandomPositiveInteger(0,20);
   for (let i=0;i<random;i++){
     const pointTest ={
       'id': pointid(),
@@ -31,6 +31,11 @@ function getTestPoint (){
   return testPointArray;
 }
 
-const testData = getTestPoint();
+
+const rawTestData = getTestPoint();
+
+const testData = rawTestData.slice().sort((a, b) => a.date_from - b.date_from) //sort fo date
+
+
 
 export {testData};
