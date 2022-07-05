@@ -17,6 +17,8 @@ const menuBlock =document.querySelector('.trip-controls__navigation');
 const filterBlock =document.querySelector('.trip-controls__filters');
 const sortBlock =document.querySelector('.trip-events');
 
+
+
 // render function
 renderElement(sortBlock,new SortElement().element,RenderPosition.BEFOREEND);
 
@@ -39,16 +41,16 @@ function renderPoinPlusEdit (pointElement, data) {
   const editComponent = new editElement(data);
 
   const replacePointToEdit = () => {
-    pointElement.replaceChild(pointComponent.element,editComponent.element);};
+    pointComponent.element.replaceWith(editComponent.element);};
 
   const replaceEditToPoint = () => {
-    pointElement.replaceChild(editComponent.element,pointComponent.element);};
+    editComponent.element.replaceWith(pointComponent.element);};
 
   pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
     replacePointToEdit();
   });
 
-  editComponent.element.querySelector('form').addEventListener('submit', (evt) => {
+  editComponent.element.querySelector('.event__rollup-btn').addEventListener('click', (evt) => {
     evt.preventDefault();
     replaceEditToPoint();
   });
