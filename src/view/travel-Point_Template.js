@@ -1,40 +1,60 @@
-import   {testData}from'../mock/test-data.js';
 import { offersTemplate } from './travelPoint/offersTemplate.js';
+import { createElement } from '../render/render.js';
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');
 dayjs.extend(relativeTime);
 
-console.log(testData);
 
 
-function travelPoint()
+export default  class travelPointElement {
+  #element = null;
+  #data = null;
+
+  constructor(data){
+    this.#data=data;
+  }
+
+  get element () {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  get template () { return travelPoint(this.#data);}
+
+  removeElement () {
+    this.#element=null;
+  }
+}
+
+
+function travelPoint(data)
 {
   let travelPointHtml = '';
-
-  for (let i=0;i<testData.length;i++){
-    const dateFrom = dayjs(testData[i].date_from);
-    const dateTo = dayjs(testData[i].date_to);
-    travelPointHtml+=`<li class="trip-events__item">
+  const dateFrom = dayjs(data.date_from);
+  const dateTo = dayjs(data.date_to);
+  travelPointHtml+=`<li class="trip-events__item">
 <div class="event">
-  <time class="event__date" datetime="${testData[i].date_from}">${dayjs(testData[i].date_from).format('MMM D')}</time>
+  <time class="event__date" datetime="${data.date_from}">${dayjs(data.date_from).format('MMM D')}</time>
   <div class="event__type">
-    <img class="event__type-icon" width="42" height="42" src="img/icons/${testData[i].type.toLowerCase()}.png" alt="Event type icon">
+    <img class="event__type-icon" width="42" height="42" src="img/icons/${data.type.toLowerCase()}.png" alt="Event type icon">
   </div>
-  <h3 class="event__title">${testData[i].destination.name}</h3>
+  <h3 class="event__title">${data.destination.name}</h3>
   <div class="event__schedule">
     <p class="event__time">
-      <time class="event__start-time" datetime="${testData[i].date_from}">${dayjs(testData[i].date_from).format('H:mm')}</time>
+      <time class="event__start-time" datetime="${data.date_from}">${dayjs(data.date_from).format('H:mm')}</time>
       &mdash;
-      <time class="event__end-time" datetime="${testData[i].date_to}">${dayjs(testData[i].date_to).format('H:mm')}</time>
+      <time class="event__end-time" datetime="${data.date_to}">${dayjs(data.date_to).format('H:mm')}</time>
     </p>
     <p class="event__duration">${dayjs(dateFrom).from(dateTo, true)}</p>
   </div>
   <p class="event__price">
-    &euro;&nbsp;<span class="event__price-value">${testData[i].base_price}</span>
+    &euro;&nbsp;<span class="event__price-value">${data.base_price}</span>
   </p>
   <h4 class="visually-hidden">Offers:</h4>
   <ul class="event__selected-offers">
-  ${offersTemplate(i)}
+  ${offersTemplate(data)}
   </ul>
   <button class="event__favorite-btn event__favorite-btn--active" type="button">
     <span class="visually-hidden">Add to favorite</span>
@@ -47,10 +67,7 @@ function travelPoint()
   </button>
 </div>
 </li>`;
-  }
-
   return travelPointHtml;
 }
 
 
-export {travelPoint};

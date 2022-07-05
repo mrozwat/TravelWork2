@@ -1,5 +1,4 @@
 import { createElement } from '../render/render.js';
-import   {testData}from'../mock/test-data.js';//deleat
 import {offerType} from '../view/edit/edit-emplate-offers-types.js';
 import { offerListToEdit } from '../view/edit/edit-template-offers-list.js';
 import {editPhoto} from './edit/edit-photo.js';

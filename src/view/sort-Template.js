@@ -1,6 +1,6 @@
 import { createElement } from '../render/render.js';
 
- export default class SortElement {
+export default class SortElement {
   #element = null;
 
   get element () {

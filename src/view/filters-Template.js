@@ -18,7 +18,6 @@ import { createElement } from '../render/render.js';
 }
 
 
-
 function filter (){
   return `<div class="trip-controls__filters">
     <h2 class="visually-hidden">Filter events</h2>
@@ -41,6 +40,3 @@ function filter (){
       <button class="visually-hidden" type="submit">Accept filter</button>
     </form>
   </div>`;}
-
-
-
