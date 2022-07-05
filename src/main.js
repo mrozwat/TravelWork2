@@ -26,13 +26,32 @@ if (data.length>0) {
 
 if (data.length>0) {
   data.forEach((data)=> {
-    renderElement(sortBlock,new editElement(data).element,RenderPosition.BEFOREEND);
-    renderElement(sortBlock, new travelPoint(data).element,RenderPosition.BEFOREEND);
+    renderPoinPlusEdit(sortBlock,data);
   });
 }
-
 
 renderElement(menuBlock,new menuElement().element,RenderPosition.BEFOREEND);
 renderElement(filterBlock,new filtersElement().element,RenderPosition.BEFOREEND);
 
 
+function renderPoinPlusEdit (pointElement, data) {
+  const pointComponent = new travelPoint(data);
+  const editComponent = new editElement(data);
+
+  const replacePointToEdit = () => {
+    pointElement.replaceChild(pointComponent.element,editComponent.element);};
+
+  const replaceEditToPoint = () => {
+    pointElement.replaceChild(editComponent.element,pointComponent.element);};
+
+  pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+    replacePointToEdit();
+  });
+
+  editComponent.element.querySelector('form').addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    replaceEditToPoint();
+  });
+
+  renderElement(pointElement, pointComponent.element, RenderPosition.BEFOREEND);
+}
