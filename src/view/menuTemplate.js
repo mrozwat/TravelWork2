@@ -1,22 +1,13 @@
-import { createElement } from '../render/render.js';
+import AbstractElement from './abstract_view';
 
- export default  class menuElement {
-  #element = null;
 
-  get element () {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
+export default  class menuElement extends AbstractElement {
+
 
   get template () { return menu();}
 
-  removeElement () {
-    this.#element=null;
-  }
-}
 
+}
 
 
 function menu (){

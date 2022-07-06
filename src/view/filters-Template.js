@@ -1,20 +1,9 @@
-import { createElement } from '../render/render.js';
+import AbstractElement from './abstract_view';
 
- export default class filtersElement {
-  #element = null;
-
-  get element () {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
+export default class filtersElement extends AbstractElement {
 
   get template () { return filter();}
 
-  removeElement () {
-    this.#element=null;
-  }
 }
 
 

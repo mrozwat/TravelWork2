@@ -1,25 +1,14 @@
-import { createElement } from '../render/render.js';
+import AbstractElement from "./abstract_view";
 
 
-export default class welcomeMesage {
+export default class welcomeMesage  extends AbstractElement{
   #element = null;
-  
-
-  get element () {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
 
   get template () { return welcomeMesageHtml();}
 
-  removeElement () {
-    this.#element=null;
-  }
 }
 
 
 function welcomeMesageHtml (){
-  return '<p class="trip-events__msg">Click New Event to create your first point</p>' ;
+  return '<p class="trip-events__msg">Click New Event to create your point</p>' ;
 }
