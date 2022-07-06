@@ -19,12 +19,12 @@ const filterBlock =document.querySelector('.trip-controls__filters');
 const sortBlock =document.querySelector('.trip-events');
 
 // render function
-renderElement(sortBlock,new SortElement().element,RenderPosition.BEFOREEND);
+renderElement(sortBlock,new SortElement(),RenderPosition.BEFOREEND);
 
-if (data.length===0) {renderElement(sortBlock,new welcomeMesage().element, RenderPosition.BEFOREEND);}
+if (data.length===0) {renderElement(sortBlock,new welcomeMesage(), RenderPosition.BEFOREEND);}
 
 if (data.length>0) {
-  renderElement(menuBlock,new InfoAbautTrip(data).element,RenderPosition.BEFOREEND);}
+  renderElement(menuBlock,new InfoAbautTrip(data),RenderPosition.BEFOREEND);}
 
 
 if (data.length>0) {
@@ -33,8 +33,8 @@ if (data.length>0) {
   });
 }
 
-renderElement(menuBlock,new menuElement().element,RenderPosition.BEFOREEND);
-renderElement(filterBlock,new filtersElement().element,RenderPosition.BEFOREEND);
+renderElement(menuBlock,new menuElement(),RenderPosition.BEFOREEND);
+renderElement(filterBlock,new filtersElement(),RenderPosition.BEFOREEND);
 
 
 function renderPoinPlusEdit (pointElement, data) {
@@ -60,7 +60,6 @@ function renderPoinPlusEdit (pointElement, data) {
     document.addEventListener('keydown', onEscKeyDown);
   });
 
-  
   editComponent.setEditClickHandler( () => {
     replaceEditToPoint();
   });
@@ -70,7 +69,7 @@ function renderPoinPlusEdit (pointElement, data) {
   });
 
 
-  renderElement(pointElement, pointComponent.element, RenderPosition.BEFOREEND);
+  renderElement(pointElement, pointComponent, RenderPosition.BEFOREEND);
 }
 
 
