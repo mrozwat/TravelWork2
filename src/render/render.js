@@ -5,10 +5,6 @@ const RenderPosition ={
   AFTEREND:'afterend',
 };
 
-//deleat
-function render (contaner, html,position){
-  contaner.insertAdjacentHTML(position,html);
-}
 
 function renderElement  (container,element, place) {
   switch (place){
@@ -28,9 +24,9 @@ function renderElement  (container,element, place) {
 }
 
 function createElement (template) {
-  let newElement = document.createElement('div');
+  const newElement = document.createElement('div');
   newElement.innerHTML = template;
   return newElement.firstElementChild;
 }
 
-export {render,RenderPosition,renderElement,createElement};
+export {RenderPosition,renderElement,createElement};

@@ -5,7 +5,7 @@ import filtersElement  from './view/filters-Template.js';
 import SortElement  from './view/sort-Template.js';
 import { addNew } from './view/Add-New-Template.js'; //v konce // render(addNewBlock,addNew(),RenderPosition.BEFOREEND);
 import  travelPoint  from './view/travel-Point_Template.js';
-import  InfoAbautTrip from './view/info-about-trip.js'
+import  InfoAbautTrip from './view/info-about-trip.js';
 import { testData } from './mock/test-data.js';
 import welcomeMesage from './view/welcomeMesage.js';
 
@@ -18,12 +18,10 @@ const menuBlock =document.querySelector('.trip-controls__navigation');
 const filterBlock =document.querySelector('.trip-controls__filters');
 const sortBlock =document.querySelector('.trip-events');
 
-
-
 // render function
 renderElement(sortBlock,new SortElement().element,RenderPosition.BEFOREEND);
 
-if (data.length===0) {renderElement(sortBlock,new welcomeMesage().element, RenderPosition.BEFOREEND)}
+if (data.length===0) {renderElement(sortBlock,new welcomeMesage().element, RenderPosition.BEFOREEND);}
 
 if (data.length>0) {
   renderElement(menuBlock,new InfoAbautTrip(data).element,RenderPosition.BEFOREEND);}
@@ -49,10 +47,19 @@ function renderPoinPlusEdit (pointElement, data) {
   const replaceEditToPoint = () => {
     editComponent.element.replaceWith(pointComponent.element);};
 
+  function onEscKeyDown  (evt) {
+    if (evt.key === 'Escape' || evt.key === 'Esc') {
+      evt.preventDefault();
+      replaceEditToPoint();
+      document.removeEventListener('keydown', onEscKeyDown);
+    }
+  }
+
   pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
     replacePointToEdit();
+    document.addEventListener('keydown', onEscKeyDown);
   });
- 
+
   editComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
     replaceEditToPoint();
   });
@@ -62,5 +69,8 @@ function renderPoinPlusEdit (pointElement, data) {
     replaceEditToPoint();
   });
 
+
   renderElement(pointElement, pointComponent.element, RenderPosition.BEFOREEND);
 }
+
+
