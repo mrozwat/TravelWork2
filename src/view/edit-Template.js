@@ -5,6 +5,7 @@ import {editPhoto} from './edit/edit-photo.js';
 import { description } from './edit/edit-photo.js';
 const dayjs = require('dayjs');
 
+//element.querySelector('input[name="event-type"]:checked').value;
 
 export default  class editElement extends AbstractElement {
   #data = null;
