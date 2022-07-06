@@ -1,12 +1,13 @@
-import{render,RenderPosition,renderElement} from './render/render.js';
+import{RenderPosition,renderElement} from './render/render.js';
 import editElement  from './view/edit-Template.js';
 import menuElement from './view/menuTemplate.js';
 import filtersElement  from './view/filters-Template.js';
 import SortElement  from './view/sort-Template.js';
 import { addNew } from './view/Add-New-Template.js'; //v konce // render(addNewBlock,addNew(),RenderPosition.BEFOREEND);
 import  travelPoint  from './view/travel-Point_Template.js';
-import { InfoAbautTrip } from '../src/view/menu/info-about-trip.js';
+import  InfoAbautTrip from './view/info-about-trip.js'
 import { testData } from './mock/test-data.js';
+import welcomeMesage from './view/welcomeMesage.js';
 
 
 const data =testData;
@@ -22,8 +23,10 @@ const sortBlock =document.querySelector('.trip-events');
 // render function
 renderElement(sortBlock,new SortElement().element,RenderPosition.BEFOREEND);
 
+if (data.length===0) {renderElement(sortBlock,new welcomeMesage().element, RenderPosition.BEFOREEND)}
+
 if (data.length>0) {
-  render(menuBlock,InfoAbautTrip(),RenderPosition.BEFOREEND);}
+  renderElement(menuBlock,new InfoAbautTrip(data).element,RenderPosition.BEFOREEND);}
 
 
 if (data.length>0) {
@@ -49,8 +52,12 @@ function renderPoinPlusEdit (pointElement, data) {
   pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
     replacePointToEdit();
   });
+ 
+  editComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+    replaceEditToPoint();
+  });
 
-  editComponent.element.querySelector('.event__rollup-btn').addEventListener('click', (evt) => {
+  editComponent.element.addEventListener('submit', (evt) => {
     evt.preventDefault();
     replaceEditToPoint();
   });
