@@ -9,7 +9,7 @@ import  InfoAbautTrip from './view/info-about-trip.js';
 import { testData } from './mock/test-data.js';
 import welcomeMesage from './view/welcomeMesage.js';
 
-
+// Data Model
 const data =testData;
 console.log(data);
 
@@ -55,17 +55,17 @@ function renderPoinPlusEdit (pointElement, data) {
     }
   }
 
-  pointComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+  pointComponent.setEditClickHandler(() => {
     replacePointToEdit();
     document.addEventListener('keydown', onEscKeyDown);
   });
 
-  editComponent.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+  
+  editComponent.setEditClickHandler( () => {
     replaceEditToPoint();
   });
 
-  editComponent.element.addEventListener('submit', (evt) => {
-    evt.preventDefault();
+  editComponent.setFormSubmitHandler(() => {
     replaceEditToPoint();
   });
 

@@ -2,6 +2,7 @@ import { createElement } from '../render/render';
 
 export default class AbstractElement {
 #element=null;
+_callback = {};
 constructor (){
   if(new.target===AbstractElement){throw new Error ('Can/t instantiate AbstractView, only concrete one.');}
 }
