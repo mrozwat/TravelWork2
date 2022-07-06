@@ -1,30 +1,20 @@
 import { offersTemplate } from './travelPoint/offersTemplate.js';
-import { createElement } from '../render/render.js';
+import AbstractElement from './abstract_view.js';
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');
 dayjs.extend(relativeTime);
 
 
-export default  class travelPointElement {
-  #element = null;
+export default  class travelPointElement extends AbstractElement {
   #data = null;
 
   constructor(data){
+    super();
     this.#data=data;
-  }
-
-  get element () {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template () { return travelPoint(this.#data);}
 
-  removeElement () {
-    this.#element=null;
-  }
 }
 
 

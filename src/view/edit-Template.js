@@ -1,4 +1,4 @@
-import { createElement } from '../render/render.js';
+import AbstractElement from './abstract_view.js';
 import {offerType} from '../view/edit/edit-emplate-offers-types.js';
 import { offerListToEdit } from '../view/edit/edit-template-offers-list.js';
 import {editPhoto} from './edit/edit-photo.js';
@@ -6,26 +6,16 @@ import { description } from './edit/edit-photo.js';
 const dayjs = require('dayjs');
 
 
-export default  class editElement {
-  #element = null;
+export default  class editElement extends AbstractElement {
   #data = null;
 
   constructor(data){
+    super();
     this.#data=data;
-  }
-
-  get element () {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template () { return edit(this.#data);}
 
-  removeElement () {
-    this.#element=null;
-  }
 }
 
 

@@ -1,27 +1,17 @@
-import { createElement } from '../render/render.js';
+import AbstractElement from './abstract_view';
 const dayjs = require('dayjs');
 
 
-export default  class InfoAbautTrip {
-  #element = null;
+export default  class InfoAbautTrip extends AbstractElement {
   #data = null;
 
   constructor(data){
+    super();
     this.#data=data;
-  }
-
-  get element () {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
   }
 
   get template () { return InfoAbautTripHtml(this.#data);}
 
-  removeElement () {
-    this.#element=null;
-  }
 }
 
 function InfoAbautTripHtml (Data) {
