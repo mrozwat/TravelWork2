@@ -33,4 +33,17 @@ function createElement (template) {
   return newElement.firstElementChild;
 }
 
-export {RenderPosition,renderElement,createElement};
+const remove = (component) => {
+  if (component === null) {
+    return;
+  }
+
+  if (!(component instanceof AbstractElement)) {
+    throw new Error('Can remove only components');
+  }
+
+  component.element.remove();
+  component.removeElement();
+};
+
+export {RenderPosition,renderElement,createElement,remove};
