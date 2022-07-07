@@ -34,6 +34,6 @@ function getTestPoint (){
 
 const rawTestData = getTestPoint();
 
-const testData = rawTestData.slice().sort((a, b) => a.date_from - b.date_from) //sort fo date
+const testData = rawTestData.slice().sort((a, b) => a.date_from - b.date_from);//sort fo date
 
 export {testData};

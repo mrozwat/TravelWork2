@@ -1,14 +1,16 @@
 import{RenderPosition,renderElement} from '../render/render.js';
-import editElement  from '../view/edit-Template.js';
-import menuElement from '../view/menuTemplate.js';//
-import filtersElement  from '../view/filters-Template.js';//
+// import editElement  from '../view/edit-Template.js';
+import menuElement from '../view/menuTemplate.js';
+import filtersElement  from '../view/filters-Template.js';
 import SortElement  from '../view/sort-Template.js';
 import { addNew } from '../view/Add-New-Template.js'; //v konce // render(addNewBlock,addNew(),RenderPosition.BEFOREEND);
-import  travelPoint  from '../view/travel-Point_Template.js';
+// import  travelPoint  from '../view/travel-Point_Template.js';
 import  InfoAbautTrip from '../view/info-about-trip.js';
-import { testData } from '../mock/test-data.js';
 import welcomeMesage from '../view/welcomeMesage.js';
+import TravelPontPresenter from './task-presenter.js';
 
+
+//const
 const menuBlock =document.querySelector('.trip-controls__navigation');
 const filterBlock =document.querySelector('.trip-controls__filters');
 
@@ -36,39 +38,9 @@ export default class BoardPresenter {
       }
 
       #renderPointComponent = (data) => {
-        // Метод, куда уйдёт логика созданию и рендерингу компонетов point
-        const pointComponent = new travelPoint(data);
-        const editComponent = new editElement(data);
+        const travelPointPresenterInstance = new TravelPontPresenter(this.#boardContainer);
+        travelPointPresenterInstance.init(data);
 
-        const replacePointToEdit = () => {
-          pointComponent.element.replaceWith(editComponent.element);};
-
-        const replaceEditToPoint = () => {
-          editComponent.element.replaceWith(pointComponent.element);};
-
-        function onEscKeyDown  (evt) {
-          if (evt.key === 'Escape' || evt.key === 'Esc') {
-            evt.preventDefault();
-            replaceEditToPoint();
-            document.removeEventListener('keydown', onEscKeyDown);
-          }
-        }
-
-        pointComponent.setEditClickHandler(() => {
-          replacePointToEdit();
-          document.addEventListener('keydown', onEscKeyDown);
-        });
-
-        editComponent.setEditClickHandler( () => {
-          replaceEditToPoint();
-        });
-
-        editComponent.setFormSubmitHandler(() => {
-          replaceEditToPoint();
-        });
-
-
-        renderElement(this.#boardContainer, pointComponent, RenderPosition.BEFOREEND);
       }
 
 
