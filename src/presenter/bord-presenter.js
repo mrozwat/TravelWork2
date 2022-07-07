@@ -16,6 +16,7 @@ const filterBlock =document.querySelector('.trip-controls__filters');
 
 
 export default class BoardPresenter {
+    #pointPresenter = new Map();
     #boardContainer = null;
     #dataPoints = [];
 
@@ -40,7 +41,7 @@ export default class BoardPresenter {
       #renderPointComponent = (data) => {
         const travelPointPresenterInstance = new TravelPontPresenter(this.#boardContainer);
         travelPointPresenterInstance.init(data);
-
+        this.#pointPresenter.set(data.id,travelPointPresenterInstance);
       }
 
 
@@ -69,6 +70,12 @@ export default class BoardPresenter {
       #renderInfoAbautTrip = ()=> {
         if (this.#dataPoints.length>0) {
           renderElement(menuBlock,new InfoAbautTrip(this.#dataPoints),RenderPosition.BEFOREEND);}
+      }
+
+      #clearTaskList = () => {
+        this.#pointPresenter.forEach((presenter) => presenter.destroy());
+        this.#pointPresenter.clear();
+
       }
 }
 

@@ -4,6 +4,7 @@ import { endDate,startDate } from './date';
 import { setCityName,setDescription,setPicture} from './destination';
 import { getRandomPositiveInteger } from '../util/util';
 import { setTestOffers } from './offers';
+import {nanoid} from 'nanoid';
 
 const pointid = setid();
 
@@ -13,7 +14,7 @@ function getTestPoint (){
   const random = getRandomPositiveInteger(0,20);
   for (let i=0;i<random;i++){
     const pointTest ={
-      'id': pointid(),
+      'id': nanoid(),
       'type': setType(),
       'date_from': startDate(),
       'date_to': endDate(),

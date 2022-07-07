@@ -1,4 +1,4 @@
-import AbstractElement from "../view/abstract_view";
+import AbstractElement from '../view/abstract_view.js';
 
 const RenderPosition ={
   BEFOREBEGIN:'beforebegin',
