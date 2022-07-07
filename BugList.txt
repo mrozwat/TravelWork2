@@ -1,1 +1,2 @@
 1)некоректное оттображение типа маршрута а edit
+2) favorit button didnt work
