@@ -13,6 +13,7 @@ export default  class TravelPontPresenter {
     }
 
     init = (point) =>{
+      this.#point=point;
       this.#pointComponent = new travelPoint(point);
       this.#pointEditComponent = new editElement(point);
 
