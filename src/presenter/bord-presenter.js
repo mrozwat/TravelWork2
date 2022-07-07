@@ -83,15 +83,15 @@ export default class BoardPresenter {
 
       #renderWelcomeMessage = () => {
         // Метод для рендеринга заглушки
-        if (this.#dataPoints.length===0) {renderElement(bordContainer,new welcomeMesage(), RenderPosition.BEFOREEND);}
+        if (this.#dataPoints.length===0) {renderElement(this.#boardContainer,new welcomeMesage(), RenderPosition.BEFOREEND);}
       }
 
       #renderBoard = () => {
         // Метод для инициализации (начала работы) модуля
-        this.#renderWelcomeMessage();
         this.#renderInfoAbautTrip();
         this.#renderSortElement();
         this.#renderTasks();
+        this.#renderWelcomeMessage();
       }
 
       #renderInfoAbautTrip = ()=> {

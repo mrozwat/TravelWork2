@@ -1,4 +1,3 @@
-import{RenderPosition} from './render/render.js';
 import { testData } from './mock/test-data.js';
 import BoardPresenter from './presenter/bord-presenter.js';
 
