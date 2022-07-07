@@ -7,6 +7,7 @@ import  InfoAbautTrip from '../view/info-about-trip.js';
 import welcomeMesage from '../view/welcomeMesage.js';
 import TravelPontPresenter from './task-presenter.js';
 import { updateItem } from '../util/util.js';
+import { sortType,sortbydate } from '../util/util.js';
 
 //const
 const menuBlock =document.querySelector('.trip-controls__navigation');
@@ -17,13 +18,16 @@ export default class BoardPresenter {
     #pointPresenter = new Map();
     #boardContainer = null;
     #dataPoints = [];
-
+    #sortComponent = new SortElement();
+    #currentSortType = sortType.DEFAULT;
+    #sourcedpoints = [];
     constructor(boardContainer) {
       this.#boardContainer = boardContainer;
     }
 
       init = (dataPoints) => {
         // Метод для инициализации (начала работы) модуля
+        this.#sourcedpoints = [...dataPoints];
         this.#dataPoints = [...dataPoints];
         renderElement(menuBlock,new menuElement(),RenderPosition.BEFOREEND);
         renderElement(filterBlock,new filtersElement(),RenderPosition.BEFOREEND);
@@ -32,7 +36,8 @@ export default class BoardPresenter {
 
       #renderSortElement = () => {
         // Метод для рендеринга сортировки
-        renderElement(this.#boardContainer,new SortElement(),RenderPosition.BEFOREEND);
+        renderElement(this.#boardContainer,this.#sortComponent,RenderPosition.BEFOREEND);
+        this.#sortComponent.setSortTypeChangeHandler(this.#handleSortTypeChange);
       }
 
       #renderPointComponent = (data) => {
@@ -68,7 +73,7 @@ export default class BoardPresenter {
           renderElement(menuBlock,new InfoAbautTrip(this.#dataPoints),RenderPosition.BEFOREEND);}
       }
 
-      #clearTaskList = () => {
+      #clearPointList = () => {
         this.#pointPresenter.forEach((presenter) => presenter.destroy());
         this.#pointPresenter.clear();
       }
@@ -77,9 +82,49 @@ export default class BoardPresenter {
         this.#pointPresenter.forEach((presenter) => presenter.resetView());
       }
 
-     #handleTaskChange = (updatedTask) => {
-       this.#dataPoints = updateItem(this.#dataPoints, updatedTask);
-       this.#pointPresenter.get(updatedTask.id).init(updatedTask);
+     #handleTaskChange = (updatedPoints) => {
+       this.#dataPoints = updateItem(this.#dataPoints, updatedPoints);
+       this.#sourcedpoints = updateItem(this.#sourcedpoints, updatedPoints);
+       this.#pointPresenter.get(updatedPoints.id).init(updatedPoints);
      }
+
+     #handleSortTypeChange = (sortTypeC) => {
+       if (this.#currentSortType === sortTypeC) {
+         return;
+       }
+       this.#sortPoints(sortTypeC);
+       this.#clearPointList();
+       this.#renderPoints();
+
+     }
+
+     #sortPoints = (sortTypeC) => {
+       switch (sortTypeC) {
+         case sortType.DAY:
+           console.log(sortType.DAY);
+           this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.date_from - a.date_from);
+           console.log(this.#dataPoints);
+           break;
+
+         case sortType.DIFERENT:
+           console.log(sortType.DIFERENT);
+           this.#dataPoints.slice().sort((a, b) => (a.date_from - a.date_from)-(b.date_from - b.date_from));
+           console.log(this.#dataPoints);
+           break;
+
+         case sortType.PRICE:
+           console.log(sortType.PRICE);
+           this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.base_price - a.base_price);
+           console.log(this.#dataPoints);
+           break;
+
+         default:
+          //navsyki slycai
+           this.#dataPoints = [...this.#sourcedpoints];
+       }
+
+       this.#currentSortType = sortTypeC;
+     }
+
 }
 

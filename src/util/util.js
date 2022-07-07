@@ -1,4 +1,5 @@
-import AbstractElement from "../view/abstract_view";
+import AbstractElement from '../view/abstract_view';
+const dayjs = require('dayjs');
 
 function getRandomPositiveInteger (a, b) {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
@@ -39,4 +40,18 @@ const replace = (newElement, oldElement) => {
   parent.replaceChild(newChild, oldChild);
 };
 
-export {getRandomPositiveInteger,updateItem,replace};
+const sortType = {
+  DAY: 'DAY',
+  DIFERENT: 'DIFERENT',
+  PRICE: 'PRICE',
+};
+
+
+const sortbydate = (taskA, taskB) => {
+ 
+
+  return  dayjs(taskA.dueDate).diff(dayjs(taskB.dueDate));
+};
+
+
+export {getRandomPositiveInteger,updateItem,replace,sortType,sortbydate};
