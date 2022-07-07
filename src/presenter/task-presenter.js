@@ -11,7 +11,7 @@ export default  class TravelPontPresenter {
     #changeData = null;
 
     constructor(poinListContainer,changeData ) {
-      this. #changeData=changeData;
+      this.#changeData=changeData;
       this.#pointListContainer = poinListContainer;
     }
 
@@ -35,9 +35,7 @@ init = (point) =>{
     this.#replaceEditToPoint();
   });
 
-  this.#pointEditComponent.setFormSubmitHandler(() => {
-    this.#replaceEditToPoint();
-  });
+  this.#pointEditComponent.setFormSubmitHandler(this.#handelSubmitForm);
 
 
   if (prevPointComponent === null || prevEditComponent === null) {
@@ -83,4 +81,10 @@ destroy = () => {
 #handleFavoriteClick = () => {
   this.#changeData({...this.#point, is_favorite: !this.#point.is_favorite});
 }
+
+#handelSubmitForm = () => {
+//   this.#changeData({...this.#point, type:this.#pointEditComponent.value});
+  this.#replaceEditToPoint();
 }
+}
+
