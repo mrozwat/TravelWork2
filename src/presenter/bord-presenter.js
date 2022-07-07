@@ -36,12 +36,12 @@ export default class BoardPresenter {
       }
 
       #renderPointComponent = (data) => {
-        const travelPointPresenterInstance = new TravelPontPresenter(this.#boardContainer,this.#handleTaskChange);
+        const travelPointPresenterInstance = new TravelPontPresenter(this.#boardContainer,this.#handleTaskChange,this.#handleModeChange);
         travelPointPresenterInstance.init(data);
         this.#pointPresenter.set(data.id,travelPointPresenterInstance);
       }
 
-      #renderTasks = () => {
+      #renderPoints = () => {
         // Метод для рендеринга N-point за раз
         if (this.#dataPoints.length>0) {
           this.#dataPoints.forEach((data)=> {
@@ -59,7 +59,7 @@ export default class BoardPresenter {
         // Метод для инициализации (начала работы) модуля
         this.#renderInfoAbautTrip();
         this.#renderSortElement();
-        this.#renderTasks();
+        this.#renderPoints();
         this.#renderWelcomeMessage();
       }
 
@@ -71,6 +71,10 @@ export default class BoardPresenter {
       #clearTaskList = () => {
         this.#pointPresenter.forEach((presenter) => presenter.destroy());
         this.#pointPresenter.clear();
+      }
+
+      #handleModeChange = () => {
+        this.#pointPresenter.forEach((presenter) => presenter.resetView());
       }
 
      #handleTaskChange = (updatedTask) => {

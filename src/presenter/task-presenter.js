@@ -3,16 +3,23 @@ import editElement  from '../view/edit-Template.js';
 import{RenderPosition,renderElement,remove} from '../render/render.js';
 import { replace } from '../util/util.js';
 
+const Mode = {
+  DEFAULT: 'DEFAULT',
+  EDITING: 'EDITING',
+};
+
 export default  class TravelPontPresenter {
     #pointListContainer = null;
     #pointComponent = null;
     #pointEditComponent = null;
     #point = null;
     #changeData = null;
-
-    constructor(poinListContainer,changeData ) {
+    #changeMode = null;
+    #mode = Mode.DEFAULT
+    constructor(poinListContainer,changeData,changeMode ) {
       this.#changeData=changeData;
       this.#pointListContainer = poinListContainer;
+      this.#changeMode = changeMode;
     }
 
 init = (point) =>{
@@ -44,12 +51,12 @@ init = (point) =>{
   }
 
 
-  if (this.#pointListContainer.contains(prevPointComponent.element)) {
+  if (this.#mode === Mode.DEFAULT) {
     replace( this.#pointComponent,prevPointComponent);
   }
 
 
-  if (this.#pointListContainer.contains(prevEditComponent.element)) {
+  if (this.#mode === Mode.EDITING) {
     replace(this.#pointEditComponent,prevEditComponent);
   }
 
@@ -59,11 +66,24 @@ init = (point) =>{
 
 }
 
+resetView = () => {
+  if (this.#mode !== Mode.DEFAULT) {
+    this.#replaceEditToPoint();
+  }
+}
+
 #replacePointToEdit = () => {
-  this.#pointComponent.element.replaceWith(this.#pointEditComponent.element);};
+  this.#pointComponent.element.replaceWith(this.#pointEditComponent.element);
+  document.addEventListener('keydown', this.#onEscKeyDown);
+  this.#changeMode();
+  this.#mode = Mode.EDITING;
+};
 
 #replaceEditToPoint = () => {
-  this.#pointEditComponent.element.replaceWith(this.#pointComponent.element);};
+  this.#pointEditComponent.element.replaceWith(this.#pointComponent.element);
+  document.removeEventListener('keydown',this.#onEscKeyDown);
+  this.#mode = Mode.DEFAULT;
+};
 
 destroy = () => {
   remove(this.#pointComponent);
@@ -86,5 +106,6 @@ destroy = () => {
 //   this.#changeData({...this.#point, type:this.#pointEditComponent.value});
   this.#replaceEditToPoint();
 }
+
 }
 
