@@ -1,3 +1,5 @@
+import AbstractElement from "../view/abstract_view";
+
 function getRandomPositiveInteger (a, b) {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -6,18 +8,35 @@ function getRandomPositiveInteger (a, b) {
   return Math.floor(result);
 }
 
+const updateItem = (items, update) => {
+  const index = items.findIndex((item) => item.id === update.id);
 
-// function getRandomIdFromRange (min,max){
-//   const idAray = [];
-//   return function () {
-//     let curentValue = getRandomPositiveInteger(min,max);
-//     if (idAray >=(max-min+1)) { return null;}
-//     while (idAray.includes(curentValue)) {
-//       curentValue = getRandomPositiveInteger (min,max);
-//     }
-//     idAray.push(curentValue);
-//     return curentValue;
-//   };
-// }
+  if (index === -1) {
+    return items;
+  }
 
-export {getRandomPositiveInteger}
+  return [
+    ...items.slice(0, index),
+    update,
+    ...items.slice(index + 1),
+  ];
+};
+
+const replace = (newElement, oldElement) => {
+  if (newElement === null || oldElement === null) {
+    throw new Error('Can\'t replace unexisting elements');
+  }
+
+  const newChild = newElement instanceof AbstractElement ? newElement.element : newElement;
+  const oldChild = oldElement instanceof AbstractElement ? oldElement.element : oldElement;
+
+  const parent = oldChild.parentElement;
+
+  if (parent === null) {
+    throw new Error('Parent element doesn\'t exist');
+  }
+
+  parent.replaceChild(newChild, oldChild);
+};
+
+export {getRandomPositiveInteger,updateItem,replace};

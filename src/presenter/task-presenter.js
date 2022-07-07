@@ -1,14 +1,17 @@
 import  travelPoint  from '../view/travel-Point_Template.js';
 import editElement  from '../view/edit-Template.js';
 import{RenderPosition,renderElement,remove} from '../render/render.js';
+import { replace } from '../util/util.js';
 
 export default  class TravelPontPresenter {
     #pointListContainer = null;
     #pointComponent = null;
     #pointEditComponent = null;
     #point = null;
+    #changeData = null;
 
-    constructor(poinListContainer) {
+    constructor(poinListContainer,changeData ) {
+      this. #changeData=changeData;
       this.#pointListContainer = poinListContainer;
     }
 
@@ -18,6 +21,10 @@ init = (point) =>{
   const prevPointComponent = this.#pointComponent;
   this.#pointComponent = new travelPoint(point);
   this.#pointEditComponent = new editElement(point);
+
+
+  this.#pointComponent.setFavoriteClickHandler(this.#handleFavoriteClick);
+
 
   this.#pointComponent.setEditClickHandler(() => {
     this.#replacePointToEdit();
@@ -39,17 +46,18 @@ init = (point) =>{
   }
 
 
-  if (this.#pointListContainer.element.contains(prevPointComponent.element)) {
-    this.#pointListContainer.element.replaceWith(prevPointComponent.element);
+  if (this.#pointListContainer.contains(prevPointComponent.element)) {
+    replace( this.#pointComponent,prevPointComponent);
   }
 
-  if (this.#pointListContainer.element.contains(prevEditComponent.element)) {
-    this.#pointEditComponent.element.replaceWith(prevEditComponent.element);
+
+  if (this.#pointListContainer.contains(prevEditComponent.element)) {
+    replace(this.#pointEditComponent,prevEditComponent);
   }
+
 
   remove(prevPointComponent);
   remove(prevEditComponent);
-
 
 }
 
@@ -70,5 +78,9 @@ destroy = () => {
     this.#replaceEditToPoint();
     document.removeEventListener('keydown', this.#onEscKeyDown);
   }
+}
+
+#handleFavoriteClick = () => {
+  this.#changeData({...this.#point, is_favorite: !this.#point.is_favorite});
 }
 }

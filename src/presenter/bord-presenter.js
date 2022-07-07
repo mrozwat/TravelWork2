@@ -1,14 +1,12 @@
 import{RenderPosition,renderElement} from '../render/render.js';
-// import editElement  from '../view/edit-Template.js';
 import menuElement from '../view/menuTemplate.js';
 import filtersElement  from '../view/filters-Template.js';
 import SortElement  from '../view/sort-Template.js';
 import { addNew } from '../view/Add-New-Template.js'; //v konce // render(addNewBlock,addNew(),RenderPosition.BEFOREEND);
-// import  travelPoint  from '../view/travel-Point_Template.js';
 import  InfoAbautTrip from '../view/info-about-trip.js';
 import welcomeMesage from '../view/welcomeMesage.js';
 import TravelPontPresenter from './task-presenter.js';
-
+import { updateItem } from '../util/util.js';
 
 //const
 const menuBlock =document.querySelector('.trip-controls__navigation');
@@ -25,8 +23,7 @@ export default class BoardPresenter {
     }
 
       init = (dataPoints) => {
-        // Метод для инициализации (начала работы) модуля,
-        // малая часть текущей функции renderBoard в main.js
+        // Метод для инициализации (начала работы) модуля
         this.#dataPoints = [...dataPoints];
         renderElement(menuBlock,new menuElement(),RenderPosition.BEFOREEND);
         renderElement(filterBlock,new filtersElement(),RenderPosition.BEFOREEND);
@@ -39,11 +36,10 @@ export default class BoardPresenter {
       }
 
       #renderPointComponent = (data) => {
-        const travelPointPresenterInstance = new TravelPontPresenter(this.#boardContainer);
+        const travelPointPresenterInstance = new TravelPontPresenter(this.#boardContainer,this.#handleTaskChange);
         travelPointPresenterInstance.init(data);
         this.#pointPresenter.set(data.id,travelPointPresenterInstance);
       }
-
 
       #renderTasks = () => {
         // Метод для рендеринга N-point за раз
@@ -75,7 +71,11 @@ export default class BoardPresenter {
       #clearTaskList = () => {
         this.#pointPresenter.forEach((presenter) => presenter.destroy());
         this.#pointPresenter.clear();
-
       }
+
+     #handleTaskChange = (updatedTask) => {
+       this.#dataPoints = updateItem(this.#dataPoints, updatedTask);
+       this.#pointPresenter.get(updatedTask.id).init(updatedTask);
+     }
 }
 

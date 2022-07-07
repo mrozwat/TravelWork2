@@ -24,7 +24,7 @@ export default  class editElement extends AbstractElement {
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this._callback.formSubmit();
+    this._callback.formSubmit(this.#data);
   }
 
   setEditClickHandler = (callback) => {
