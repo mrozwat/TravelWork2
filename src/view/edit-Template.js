@@ -4,18 +4,21 @@ import { offerListToEdit } from '../view/edit/edit-template-offers-list.js';
 import {editPhoto} from './edit/edit-photo.js';
 import { description } from './edit/edit-photo.js';
 const dayjs = require('dayjs');
-
+import { offersList,descriptionList } from '../mock/test-data.js';
 //element.querySelector('input[name="event-type"]:checked').value;
 
 export default  class editElement extends AbstractElement {
   #data = null;
-
   constructor(data){
     super();
     this.#data=data;
+    this._offersList=offersList;
+    this._descriptionList=descriptionList;
+
   }
 
-  get template () { return edit(this.#data);}
+  get template () {
+    return edit(this.#data,this._offersList,this._descriptionList);}
 
   setFormSubmitHandler = (callback) => {
     this._callback.formSubmit = callback;
@@ -40,7 +43,7 @@ export default  class editElement extends AbstractElement {
 }
 
 
-function edit (data){
+function edit (data,offersList,descriptionList){
   const editHtml =`<form class="event event--edit" action="#" method="post" id="editform">
 <header class="event__header">
   <div class="event__type-wrapper">
@@ -90,7 +93,7 @@ function edit (data){
   </button>
 </header>
 <section class="event__details">
-      ${offerListToEdit(data)}
+      ${offerListToEdit(data,offersList,descriptionList)}
     </div>
   </section>
 
