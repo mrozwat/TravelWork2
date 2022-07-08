@@ -8,7 +8,7 @@ import welcomeMesage from '../view/welcomeMesage.js';
 import TravelPontPresenter from './task-presenter.js';
 import { updateItem } from '../util/util.js';
 import { sortType} from '../util/util.js';
-const dayjs = require('dayjs');
+
 //const
 const menuBlock =document.querySelector('.trip-controls__navigation');
 const filterBlock =document.querySelector('.trip-controls__filters');

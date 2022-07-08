@@ -7,9 +7,6 @@ import {nanoid} from 'nanoid';
 const dayjs = require('dayjs');
 
 
-
-
-
 function getTestPoint (){
   const testPointArray =[];
   const random = getRandomPositiveInteger(0,20);
@@ -40,9 +37,9 @@ const testData = rawTestData.slice().sort((a, b) => b.date_from - a.date_from);/
 
 //add new key to data with value
 testData.forEach(element =>{
-  let a=dayjs(element.date_from);
-  let b =dayjs(element.date_to)
+  const a=dayjs(element.date_from);
+  const b =dayjs(element.date_to);
   element.diferent=b.diff(a,'minute');
-}) 
+});
 
 export {testData};
