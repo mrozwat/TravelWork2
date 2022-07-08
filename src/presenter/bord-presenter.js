@@ -7,8 +7,8 @@ import  InfoAbautTrip from '../view/info-about-trip.js';
 import welcomeMesage from '../view/welcomeMesage.js';
 import TravelPontPresenter from './task-presenter.js';
 import { updateItem } from '../util/util.js';
-import { sortType,sortbydate } from '../util/util.js';
-
+import { sortType} from '../util/util.js';
+const dayjs = require('dayjs');
 //const
 const menuBlock =document.querySelector('.trip-controls__navigation');
 const filterBlock =document.querySelector('.trip-controls__filters');
@@ -101,25 +101,23 @@ export default class BoardPresenter {
      #sortPoints = (sortTypeC) => {
        switch (sortTypeC) {
          case sortType.DAY:
-           console.log(sortType.DAY);
+
            this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.date_from - a.date_from);
-           console.log(this.#dataPoints);
+
            break;
 
          case sortType.DIFERENT:
-           console.log(sortType.DIFERENT);
-           this.#dataPoints.slice().sort((a, b) => (a.date_from - a.date_from)-(b.date_from - b.date_from));
-           console.log(this.#dataPoints);
+           this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.diferent - a.diferent);
            break;
 
          case sortType.PRICE:
-           console.log(sortType.PRICE);
+
            this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.base_price - a.base_price);
-           console.log(this.#dataPoints);
+
            break;
 
          default:
-          //navsyki slycai
+           //navsyki slycai
            this.#dataPoints = [...this.#sourcedpoints];
        }
 

@@ -1,12 +1,13 @@
-import { setid} from './id';
 import { setType } from './type';
 import { endDate,startDate } from './date';
 import { setCityName,setDescription,setPicture} from './destination';
 import { getRandomPositiveInteger } from '../util/util';
 import { setTestOffers } from './offers';
 import {nanoid} from 'nanoid';
+const dayjs = require('dayjs');
 
-const pointid = setid();
+
+
 
 
 function getTestPoint (){
@@ -36,5 +37,12 @@ function getTestPoint (){
 const rawTestData = getTestPoint();
 
 const testData = rawTestData.slice().sort((a, b) => b.date_from - a.date_from);//sort fo date
+
+//add new key to data with value
+testData.forEach(element =>{
+  let a=dayjs(element.date_from);
+  let b =dayjs(element.date_to)
+  element.diferent=b.diff(a,'minute');
+}) 
 
 export {testData};

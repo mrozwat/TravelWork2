@@ -47,11 +47,7 @@ const sortType = {
 };
 
 
-const sortbydate = (taskA, taskB) => {
- 
-
-  return  dayjs(taskA.dueDate).diff(dayjs(taskB.dueDate));
-};
 
 
-export {getRandomPositiveInteger,updateItem,replace,sortType,sortbydate};
+
+export {getRandomPositiveInteger,updateItem,replace,sortType};
