@@ -1,6 +1,6 @@
 import AbstractElement from './abstract_view.js';
 import {offerType} from '../view/edit/edit-emplate-offers-types.js';
-import { offerListToEdit } from '../view/edit/edit-template-offers-list.js';
+import { offerListToEdit,setoption } from '../view/edit/edit-template-offers-list.js';
 import {editPhoto} from './edit/edit-photo.js';
 import { description } from './edit/edit-photo.js';
 const dayjs = require('dayjs');
@@ -49,7 +49,7 @@ export default  class editElement extends AbstractElement {
 
    get template () {
      this.#setConditionData();
-     return edit(this.#dataCondition);}
+     return edit(this.#dataCondition,this.#descriptionList);}
 
   setFormSubmitHandler = (callback) => {
     this._callback.formSubmit = callback;
@@ -74,8 +74,8 @@ export default  class editElement extends AbstractElement {
 }
 
 
-function edit (datacondition){
-
+function edit (datacondition,allCitys){
+console.log(allCitys)
   const editHtml =`<form class="event event--edit" action="#" method="post" id="editform">
 <header class="event__header">
   <div class="event__type-wrapper">
@@ -94,11 +94,12 @@ function edit (datacondition){
     <label class="event__label  event__type-output" for="event-destination-1">
     ${datacondition.type}
     </label>
-    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${datacondition.name}" list="destination-list-1">
+    <input  class="event__input  event__input--destination" list="destination-list-1" id="event-destination-1" type="text" name="event-destination" value="${datacondition.name}"">
     <datalist id="destination-list-1">
-      <option value="Amsterdam"></option>
-      <option value="Geneva"></option>
-      <option value="Chamonix"></option>
+     ${setoption(allCitys)}
+      <option value="Amsterdam">
+      <option value="Geneva">
+      <option value="Chamonix">
     </datalist>
   </div>
 

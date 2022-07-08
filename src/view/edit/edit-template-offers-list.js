@@ -26,4 +26,12 @@ function offerListToEdit (datacondition){
 
   else {return offersListHtml ='';}
 }
-export{offerListToEdit};
+
+function setoption(allCitys){
+  let htmlOptiom =``;
+  allCitys.forEach(element => {
+    htmlOptiom+=`<option value="${element.name}"></option>`
+  });
+  return htmlOptiom;
+}
+export{offerListToEdit,setoption};
