@@ -1,19 +1,18 @@
-function editPhoto(data,descriptionList) {
-  console.log(descriptionList)
+function editPhoto(datacondition) {
   let imgHtml ='';
-  for (let j=0; j<data.destination.pictures.length;j++){
+  for (let j=0; j<datacondition.pictures.length;j++){
 
-    imgHtml += `<img class="event__photo" src="${data.destination.pictures[j].src}" alt="${data.destination.pictures[j].description}"></img>`;
+    imgHtml += `<img class="event__photo" src="${datacondition.pictures[j].src}" alt="${datacondition.pictures[j].description}"></img>`;
 
   }
   return imgHtml;
 }
 
-function description (data,descriptionList) {
+function description (datacondition) {
   let description ='<h3 class="event__section-title  event__section-title--destination">Destination</h3>';
 
-  if (data.destination.description!=`` ||data.destination.pictures.length !=0 ) {
-    description+=`<p class="event__destination-description">${data.destination.description}</p>`;
+  if (datacondition.description!=`` ||datacondition.pictures.length !==0 ) {
+    description+=`<p class="event__destination-description">${datacondition.description}</p>`;
   }
   else {description='';}
 

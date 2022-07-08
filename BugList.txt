@@ -1,2 +1,16 @@
 1)некоректное оттображение типа маршрута а edit
 2) favorit button didnt work
+
+
+for (let i=0; i<dataCondition.checkedOffers.length;i++){
+    console.log('fales')
+    for (let j=0;j<data.length;j++){
+      
+      for (let k=0;k<data[j].offers;k++){
+
+        if (dataCondition.checkedOffers[i].id===data[j].offers[k].id) {console.log('true'); dataCondition.checkedOffers[i].ceheck=true;}
+        else{console.log('fales'); dataCondition.checkedOffers[i].ceheck=false;}
+      }
+    }
+
+  }

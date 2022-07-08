@@ -1,14 +1,14 @@
 import { getRandomPositiveInteger } from '../util/util';
 
 const citys = [
-  'Triford',
-  'Blonport',
-  'Uyruchester',
-  'Vetol',
-  'Wison',
-  'Shance',
-  'Yrora',
-  'Yrodon',
+  'Chamonix',
+  'Geneva',
+  'Amsterdam',
+  'Helsinki',
+  'Oslo',
+  'Kopenhagen',
+  'Rotterdam',
+  'Nagasaki',
   'Orkland',
   'Eimfield',
   'Sreemont'];

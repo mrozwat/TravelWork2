@@ -1,4 +1,4 @@
-function offerType (data){
+function offerType (datacondition){
   let Taxi = '';
   let Bus = '';
   let Train = '';
@@ -8,16 +8,16 @@ function offerType (data){
   let Checkin = '';
   let Sightseeing = '';
   let Restaurant = '';
-  switch (data.type){
-    case 'Taxi':  Taxi = 'checked';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';  break;
-    case 'Bus':  Bus = 'checked';Taxi = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
-    case 'Train':  Train = 'checked';Taxi = '';Bus = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
-    case 'Ship':  Ship = 'checked'; Taxi = '';Bus = '';Train = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';break;
-    case 'Drive':  Drive = 'checked'; Taxi = '';Bus = '';Train = '';Ship = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';break;
-    case 'Flight':  Flight = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
-    case 'Check-in':  Checkin = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Sightseeing = '';Restaurant = ''; break;
-    case 'Sightseeing':  Sightseeing = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Restaurant = ''; break;
-    case 'Restaurant':  Restaurant = 'checked'; Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';break;
+  switch (datacondition.type){
+    case 'taxi':  Taxi = 'checked';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';  break;
+    case 'bus':  Bus = 'checked';Taxi = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
+    case 'train':  Train = 'checked';Taxi = '';Bus = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
+    case 'ship':  Ship = 'checked'; Taxi = '';Bus = '';Train = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';break;
+    case 'drive':  Drive = 'checked'; Taxi = '';Bus = '';Train = '';Ship = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';break;
+    case 'flight':  Flight = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
+    case 'check-in':  Checkin = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Sightseeing = '';Restaurant = ''; break;
+    case 'sightseeing':  Sightseeing = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Restaurant = ''; break;
+    case 'restaurant':  Restaurant = 'checked'; Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';break;
   }
 
 

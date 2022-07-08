@@ -9,16 +9,47 @@ import { offersList,descriptionList } from '../mock/test-data.js';
 
 export default  class editElement extends AbstractElement {
   #data = null;
+  #dataCondition=null;
+  #offersList=null;
+  #descriptionList=null;
   constructor(data){
     super();
     this.#data=data;
-    this._offersList=offersList;
-    this._descriptionList=descriptionList;
-
+    this.#offersList=offersList;
+    this.#descriptionList=descriptionList;
+    this.#dataCondition=this.#data;
   }
 
-  get template () {
-    return edit(this.#data,this._offersList,this._descriptionList);}
+   #setConditionData =()=>{
+     this.#dataCondition= {
+       'name': this.#data.destination.name,
+       'type':this.#data.type.toLowerCase().toString(),
+       'price': this.#data.base_price,
+       'timeTo':this.#data.date_to,
+       'timeFrom':this.#data.date_from,
+       'description':'',
+       'checkedOffers': [],
+       'pictures':[]
+     };
+
+     offersList.forEach((element)=>{if(element.type=== this.#dataCondition.type){this.#dataCondition.checkedOffers.push(...element.offers);} else {}});
+
+     for (let i=0; i<this.#dataCondition.checkedOffers.length;i++){
+       for (let k=0;k<this.#data.offers.length;k++){
+         if (this.#dataCondition.checkedOffers[i].id===this.#data.offers[k].id) { this.#dataCondition.checkedOffers[i].ceheck=true;}
+         else{ this.#dataCondition.checkedOffers[i].ceheck=false;}
+       }
+     }
+
+     this.#descriptionList.forEach((el)=>{if(el.name===this.#dataCondition.name){this.#dataCondition.description=el.description;
+       this.#dataCondition.pictures.push(...el.pictures);
+
+     }});
+   }
+
+   get template () {
+     this.#setConditionData();
+     return edit(this.#dataCondition);}
 
   setFormSubmitHandler = (callback) => {
     this._callback.formSubmit = callback;
@@ -43,26 +74,27 @@ export default  class editElement extends AbstractElement {
 }
 
 
-function edit (data,offersList,descriptionList){
+function edit (datacondition){
+
   const editHtml =`<form class="event event--edit" action="#" method="post" id="editform">
 <header class="event__header">
   <div class="event__type-wrapper">
     <label class="event__type  event__type-btn" for="event-type-toggle-1">
       <span class="visually-hidden">Choose event type</span>
-      <img class="event__type-icon" width="17" height="17" src="img/icons/${data.type.toLowerCase()}.png" alt="Event type icon">
+      <img class="event__type-icon" width="17" height="17" src="img/icons/${datacondition.type.toLowerCase()}.png" alt="Event type icon">
     </label>
     <input class="event__type-toggle  visually-hidden" id="event-type-toggle-1" type="checkbox">
 
     <div class="event__type-list">
-      ${offerType(data)}
+      ${offerType(datacondition)}
     </div>
   </div>
 
   <div class="event__field-group  event__field-group--destination">
     <label class="event__label  event__type-output" for="event-destination-1">
-    ${data.type}
+    ${datacondition.type}
     </label>
-    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${data.destination.name}" list="destination-list-1">
+    <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${datacondition.name}" list="destination-list-1">
     <datalist id="destination-list-1">
       <option value="Amsterdam"></option>
       <option value="Geneva"></option>
@@ -72,10 +104,10 @@ function edit (data,offersList,descriptionList){
 
   <div class="event__field-group  event__field-group--time">
     <label class="visually-hidden" for="event-start-time-1">From</label>
-    <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${dayjs(data.date_from).format('DD/MM/YY HH.mm')}">
+    <input class="event__input  event__input--time" id="event-start-time-1" type="text" name="event-start-time" value="${dayjs(datacondition.timeFrom).format('DD/MM/YY HH.mm')}">
     &mdash;
     <label class="visually-hidden" for="event-end-time-1">To</label>
-    <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${dayjs(data.date_to).format('DD/MM/YY HH.mm')}">
+    <input class="event__input  event__input--time" id="event-end-time-1" type="text" name="event-end-time" value="${dayjs(datacondition.timeTo).format('DD/MM/YY HH.mm')}">
   </div>
 
   <div class="event__field-group  event__field-group--price">
@@ -83,7 +115,7 @@ function edit (data,offersList,descriptionList){
       <span class="visually-hidden">Price</span>
       &euro;
     </label>
-    <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${data.base_price}">
+    <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${datacondition.price}">
   </div>
 
   <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -93,15 +125,15 @@ function edit (data,offersList,descriptionList){
   </button>
 </header>
 <section class="event__details">
-      ${offerListToEdit(data,offersList)}
+      ${offerListToEdit(datacondition)}
     </div>
   </section>
 
   <section class="event__section  event__section--destination">
-   ${description(data,descriptionList)}
+   ${description(datacondition)}
     <div class="event__photos-container">
     <div class="event__photos-tape">
-      ${editPhoto(data,descriptionList)}
+      ${editPhoto(datacondition)}
     </div>
   </div>
     </section>
