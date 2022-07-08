@@ -1,6 +1,16 @@
 
 
-function offerListToEdit (data){
+function offerListToEdit (data,offersList,descriptionList){
+  let curnetOffers;
+  const offerlist = offersList;
+  const dataType= data.type.toLowerCase().toString();
+  offerlist.forEach((element) => {
+    if(element.type===dataType){
+      curnetOffers= element.offers;
+    }
+  });
+
+
   let offersListHtml ='';
   if (data.offers.length>0) {
     offersListHtml =`
