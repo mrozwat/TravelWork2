@@ -93,15 +93,15 @@ function edit (data,offersList,descriptionList){
   </button>
 </header>
 <section class="event__details">
-      ${offerListToEdit(data,offersList,descriptionList)}
+      ${offerListToEdit(data,offersList)}
     </div>
   </section>
 
   <section class="event__section  event__section--destination">
-   ${description(data)}
+   ${description(data,descriptionList)}
     <div class="event__photos-container">
     <div class="event__photos-tape">
-      ${editPhoto(data)}
+      ${editPhoto(data,descriptionList)}
     </div>
   </div>
     </section>

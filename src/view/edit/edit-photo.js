@@ -1,4 +1,5 @@
-function editPhoto(data) {
+function editPhoto(data,descriptionList) {
+  console.log(descriptionList)
   let imgHtml ='';
   for (let j=0; j<data.destination.pictures.length;j++){
 
@@ -8,7 +9,7 @@ function editPhoto(data) {
   return imgHtml;
 }
 
-function description (data) {
+function description (data,descriptionList) {
   let description ='<h3 class="event__section-title  event__section-title--destination">Destination</h3>';
 
   if (data.destination.description!=`` ||data.destination.pictures.length !=0 ) {

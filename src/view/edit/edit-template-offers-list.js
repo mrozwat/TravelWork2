@@ -1,6 +1,6 @@
 
 
-function offerListToEdit (data,offersList,descriptionList){
+function offerListToEdit (data,offersList){
 
 
   let curnetOffers;
