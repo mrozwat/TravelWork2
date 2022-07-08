@@ -15,7 +15,7 @@ function offerType (data){
     case 'Ship':  Ship = 'checked'; Taxi = '';Bus = '';Train = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';break;
     case 'Drive':  Drive = 'checked'; Taxi = '';Bus = '';Train = '';Ship = '';Flight = '';Checkin = '';Sightseeing = '';Restaurant = '';break;
     case 'Flight':  Flight = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Checkin = '';Sightseeing = '';Restaurant = ''; break;
-    case 'Checkin':  Checkin = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Sightseeing = '';Restaurant = ''; break;
+    case 'Check-in':  Checkin = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Sightseeing = '';Restaurant = ''; break;
     case 'Sightseeing':  Sightseeing = 'checked';Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Restaurant = ''; break;
     case 'Restaurant':  Restaurant = 'checked'; Taxi = '';Bus = '';Train = '';Ship = '';Drive = '';Flight = '';Checkin = '';Sightseeing = '';break;
   }
