@@ -104,10 +104,21 @@ export default  class editElement extends AbstractSmartView{
     this.updateData(dataUpdate);
   };
 
+  setInpuPriceHandler =()=>{
+    this.element.querySelector('.event__input--price').addEventListener('input', this.#inputPriceHandler);
+  };
+
+  #inputPriceHandler= ()=>{
+    const dataPriceUpdate ={
+      'price':this.element.querySelector('.event__input--price').value,
+    };
+    this.updateData(dataPriceUpdate,true);
+  };
 
   #setinnerHandlers= ()=>{
     this.setTypeButtonhandler();
     this.setNamebuttonHandler();
+    this.setInpuPriceHandler();
   };
 
   restoreHandlers = () => {
