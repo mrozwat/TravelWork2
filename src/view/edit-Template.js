@@ -1,15 +1,14 @@
-import AbstractElement from './abstract_view.js';
 import {offerType} from '../view/edit/edit-emplate-offers-types.js';
 import { offerListToEdit,setoption } from '../view/edit/edit-template-offers-list.js';
 import {editPhoto} from './edit/edit-photo.js';
 import { description } from './edit/edit-photo.js';
-const dayjs = require('dayjs');
 import { offersList,descriptionList } from '../mock/test-data.js';
+import AbstractSmartView from './abstract-smart-view.js';
+const dayjs = require('dayjs');
 //element.querySelector('input[name="event-type"]:checked').value;
 
-export default  class editElement extends AbstractElement {
+export default  class editElement extends AbstractSmartView{
   #data = null;
-  #dataCondition=null;
   #offersList=null;
   #descriptionList=null;
   constructor(data){
@@ -17,39 +16,40 @@ export default  class editElement extends AbstractElement {
     this.#data=data;
     this.#offersList=offersList;
     this.#descriptionList=descriptionList;
-    this.#dataCondition=this.#data;
+    this._dataCondition=this.#setConditionData(this.#data);
+    this.#setinnerHandlers();
   }
 
-   #setConditionData =()=>{
-     this.#dataCondition= {
-       'name': this.#data.destination.name,
-       'type':this.#data.type.toLowerCase().toString(),
-       'price': this.#data.base_price,
-       'timeTo':this.#data.date_to,
-       'timeFrom':this.#data.date_from,
+   #setConditionData =(data)=>{
+     this._dataCondition= {
+       'name': data.destination.name,
+       'type':data.type.toLowerCase().toString(),
+       'price': data.base_price,
+       'timeTo':data.date_to,
+       'timeFrom':data.date_from,
        'description':'',
        'checkedOffers': [],
        'pictures':[]
      };
 
-     offersList.forEach((element)=>{if(element.type=== this.#dataCondition.type){this.#dataCondition.checkedOffers.push(...element.offers);} else {}});
+     offersList.forEach((element)=>{if(element.type=== this._dataCondition.type){this._dataCondition.checkedOffers.push(...element.offers);} else {}});
 
-     for (let i=0; i<this.#dataCondition.checkedOffers.length;i++){
+     for (let i=0; i<this._dataCondition.checkedOffers.length;i++){
        for (let k=0;k<this.#data.offers.length;k++){
-         if (this.#dataCondition.checkedOffers[i].id===this.#data.offers[k].id) { this.#dataCondition.checkedOffers[i].ceheck=true;}
-         else{ this.#dataCondition.checkedOffers[i].ceheck=false;}
+         if (this._dataCondition.checkedOffers[i].id===data.offers[k].id) { this._dataCondition.checkedOffers[i].ceheck=true;}
+         else{ this._dataCondition.checkedOffers[i].ceheck=false;}
        }
      }
 
-     this.#descriptionList.forEach((el)=>{if(el.name===this.#dataCondition.name){this.#dataCondition.description=el.description;
-       this.#dataCondition.pictures.push(...el.pictures);
+     this.#descriptionList.forEach((el)=>{if(el.name===this._dataCondition.name){this._dataCondition.description=el.description;
+       this._dataCondition.pictures.push(...el.pictures);
 
      }});
+     return this._dataCondition;
    }
 
    get template () {
-     this.#setConditionData();
-     return edit(this.#dataCondition,this.#descriptionList);}
+     return edit(this._dataCondition,this.#descriptionList);}
 
   setFormSubmitHandler = (callback) => {
     this._callback.formSubmit = callback;
@@ -71,11 +71,54 @@ export default  class editElement extends AbstractElement {
     this._callback.editClick();
   }
 
+  setTypeButtonhandler = () => {
+    this.element.querySelector('.event__type-group').addEventListener('change', this.#typeButtonhandler);
+  }
+
+  #typeButtonhandler= (evt) =>{
+    evt.preventDefault();
+    const datatoUpdate = {
+      'type': this.element.querySelector('input[name="event-type"]:checked').value,
+      'checkedOffers':[]
+    };
+
+    offersList.forEach((element)=>{if(element.type=== datatoUpdate.type){
+      datatoUpdate.checkedOffers.push(...element.offers);} else {}});
+    this.updateData(datatoUpdate);
+  }
+
+  setNamebuttonHandler = () =>{
+    this.element.querySelector('.event__input--destination').addEventListener('change', this.#nameHandler);
+  };
+
+  #nameHandler=(evt)=>{
+    evt.preventDefault();
+    const dataUpdate ={
+      'name':this.element.querySelector('input[name="event-destination"]').value,
+      'pictures':[]
+    };
+
+    this.#descriptionList.forEach((el)=>{if(el.name===dataUpdate.name){dataUpdate.description=el.description;
+      dataUpdate.pictures.push(...el.pictures);
+    }});
+    this.updateData(dataUpdate);
+  };
+
+
+  #setinnerHandlers= ()=>{
+    this.setTypeButtonhandler();
+    this.setNamebuttonHandler();
+  };
+
+  restoreHandlers = () => {
+    this.#setinnerHandlers();
+    this.setEditClickHandler(this._callback.editClick);
+    this.setFormSubmitHandler(this._callback.formSubmit);
+  }
 }
 
 
 function edit (datacondition,allCitys){
-console.log(allCitys)
   const editHtml =`<form class="event event--edit" action="#" method="post" id="editform">
 <header class="event__header">
   <div class="event__type-wrapper">

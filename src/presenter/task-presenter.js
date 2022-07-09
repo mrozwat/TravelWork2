@@ -42,8 +42,10 @@ init = (point) =>{
     this.#replaceEditToPoint();
   });
 
-  this.#pointEditComponent.setFormSubmitHandler(this.#handelSubmitForm);
-
+  this.#pointEditComponent.setFormSubmitHandler( () => {
+    this.#replaceEditToPoint();
+  });
+ 
 
   if (prevPointComponent === null || prevEditComponent === null) {
     renderElement(this.#pointListContainer, this.#pointComponent, RenderPosition.BEFOREEND);
