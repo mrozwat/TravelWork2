@@ -1,6 +1,7 @@
 
 
 function offerListToEdit (datacondition){
+
   let offersListHtml ='';
 
   if (datacondition.checkedOffers!== undefined && datacondition.checkedOffers.length>0) {
@@ -15,12 +16,14 @@ function offerListToEdit (datacondition){
       offersListHtml +=`
     <div class="event__offer-selector">
             <input class="event__offer-checkbox  visually-hidden" id="${datacondition.checkedOffers[j].id}" type="checkbox" name="event-offer-${datacondition.checkedOffers[j].title}" ${datacondition.checkedOffers[j].ceheck ? 'checked': ''}>
-            <label class="event__offer-label" for="event-offer-${datacondition.checkedOffers[j].title}-1">
+            <label class="event__offer-label" for="${datacondition.checkedOffers[j].id}">
           <span class="event__offer-title">${datacondition.checkedOffers[j].title}</span>
           &plus;&euro;&nbsp;
           <span class="event__offer-price">${datacondition.checkedOffers[j].price}</span>
             </label>
             </div>`;}
+
+  
     return offersListHtml;
   }
 

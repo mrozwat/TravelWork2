@@ -139,10 +139,9 @@ function edit (datacondition,allCitys){
     </label>
     <input  class="event__input  event__input--destination" list="destination-list-1" id="event-destination-1" type="text" name="event-destination" value="${datacondition.name}"">
     <datalist id="destination-list-1">
+    <select>
      ${setoption(allCitys)}
-      <option value="Amsterdam">
-      <option value="Geneva">
-      <option value="Chamonix">
+     </select>
     </datalist>
   </div>
 
