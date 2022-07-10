@@ -117,7 +117,7 @@ export default  class editElement extends AbstractSmartView{
 
   setOfferCheckbofHandler = ()=>{if(this._dataCondition.checkedOffers.length>0){
     this.element.querySelector('.event__available-offers').addEventListener('change', this.#offerHandler);}
-    else {return}
+  else {}
   };
 
   #offerHandler =(evt)=>{
@@ -141,6 +141,12 @@ export default  class editElement extends AbstractSmartView{
     this.#setinnerHandlers();
     this.setEditClickHandler(this._callback.editClick);
     this.setFormSubmitHandler(this._callback.formSubmit);
+  }
+
+  reset = (point) => {
+    this.updateData(
+      this.#setConditionData(point),
+    );
   }
 }
 
