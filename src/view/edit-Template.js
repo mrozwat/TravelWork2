@@ -115,10 +115,26 @@ export default  class editElement extends AbstractSmartView{
     this.updateData(dataPriceUpdate,true);
   };
 
+  setOfferCheckbofHandler = ()=>{if(this._dataCondition.checkedOffers.length>0){
+    this.element.querySelector('.event__available-offers').addEventListener('change', this.#offerHandler);}
+    else {return}
+  };
+
+  #offerHandler =(evt)=>{
+    evt.preventDefault();
+    const offerUpdate =evt.target.name;
+    const offersUpdateAr = this._dataCondition;
+    offersUpdateAr.checkedOffers.forEach((el)=>{if(offerUpdate===el.title){
+      el.ceheck= !el.ceheck;
+    }});
+    this.updateData(offersUpdateAr,true);
+  }
+
   #setinnerHandlers= ()=>{
     this.setTypeButtonhandler();
     this.setNamebuttonHandler();
     this.setInpuPriceHandler();
+    this.setOfferCheckbofHandler();
   };
 
   restoreHandlers = () => {
