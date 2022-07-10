@@ -5,12 +5,16 @@ import { description } from './edit/edit-photo.js';
 import { offersList,descriptionList } from '../mock/test-data.js';
 import AbstractSmartView from './abstract-smart-view.js';
 const dayjs = require('dayjs');
+import flatpickr from 'flatpickr';
+import '../../node_modules/flatpickr/dist/flatpickr.min.css';
+
 //element.querySelector('input[name="event-type"]:checked').value;
 
 export default  class editElement extends AbstractSmartView{
   #data = null;
   #offersList=null;
   #descriptionList=null;
+  #datepicker = null;
   constructor(data){
     super();
     this.#data=data;
@@ -18,6 +22,17 @@ export default  class editElement extends AbstractSmartView{
     this.#descriptionList=descriptionList;
     this._dataCondition=this.#setConditionData(this.#data);
     this.#setinnerHandlers();
+    this.#setDatepickerStartTime();
+    this.#setDatepickerEndTime();
+  }
+
+  removeElement = () => {
+    super.removeElement();
+
+    if (this.#datepicker) {
+      this.#datepicker.destroy();
+      this.#datepicker = null;
+    }
   }
 
    #setConditionData =(data)=>{
@@ -139,6 +154,8 @@ export default  class editElement extends AbstractSmartView{
 
   restoreHandlers = () => {
     this.#setinnerHandlers();
+    this.#setDatepickerStartTime();
+    this.#setDatepickerEndTime();
     this.setEditClickHandler(this._callback.editClick);
     this.setFormSubmitHandler(this._callback.formSubmit);
   }
@@ -148,6 +165,50 @@ export default  class editElement extends AbstractSmartView{
       this.#setConditionData(point),
     );
   }
+
+  #setDatepickerStartTime = () => {
+    this.#datepicker = flatpickr(
+      this.element.querySelector('#event-start-time-1'),
+      {
+        enableTime: true,
+        dateFormat: "H:i",
+        time_24hr: true,
+        dateFormat: 'j F',
+        defaultHour:this._dataCondition.date_from,
+        defaultDate: this._dataCondition.date_from,
+        onChange: this.#StartDateChangeHandler,
+      },
+    );
+  }
+
+  #setDatepickerEndTime = () => {
+    this.#datepicker = flatpickr(
+      this.element.querySelector('#event-end-time-1'),
+      {
+        enableTime: true,
+        time_24hr: true,
+        dateFormat: 'j F',
+        defaultDate: this._dataCondition.date_to,
+        onChange: this.#EndDateChangeHandler,
+      },
+    );
+  }
+
+#EndDateChangeHandler= ([userDate])=>{
+  this.updateData({
+    date_to: userDate,
+  });
+  delete this._dataCondition.timeFrom;
+  delete this._dataCondition.timeTo;
+}
+
+#StartDateChangeHandler= ([userDate])=>{
+  this.updateData({
+    date_from: userDate,
+  });
+  delete this._dataCondition.timeFrom;
+  delete this._dataCondition.timeTo;
+}
 }
 
 

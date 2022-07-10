@@ -82,6 +82,7 @@ resetView = () => {
 };
 
 #replaceEditToPoint = () => {
+  this.#pointEditComponent.reset(this.#point);
   this.#pointEditComponent.element.replaceWith(this.#pointComponent.element);
   document.removeEventListener('keydown',this.#onEscKeyDown);
   this.#mode = Mode.DEFAULT;
@@ -95,6 +96,7 @@ destroy = () => {
 #onEscKeyDown = (evt) =>{
   if (evt.key === 'Escape' || evt.key === 'Esc') {
     evt.preventDefault();
+    this.#pointEditComponent.reset(this.#point);
     this.#replaceEditToPoint();
     document.removeEventListener('keydown', this.#onEscKeyDown);
   }
