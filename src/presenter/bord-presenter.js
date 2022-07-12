@@ -21,8 +21,14 @@ export default class BoardPresenter {
     #sortComponent = new SortElement();
     #currentSortType = sortType.DEFAULT;
     #sourcedpoints = [];
-    constructor(boardContainer) {
+    #PointModel= null;
+    constructor(boardContainer,pointModel) {
       this.#boardContainer = boardContainer;
+      this.#PointModel = pointModel;
+    }
+
+    get points (){
+      return this.#PointModel;
     }
 
       init = (dataPoints) => {

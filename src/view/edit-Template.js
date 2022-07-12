@@ -171,9 +171,8 @@ export default  class editElement extends AbstractSmartView{
       this.element.querySelector('#event-start-time-1'),
       {
         enableTime: true,
-        dateFormat: "H:i",
-        time_24hr: true,
-        dateFormat: 'j F',
+        'time_24hr': true,
+        'dateFormat': 'j F',
         defaultHour:this._dataCondition.date_from,
         defaultDate: this._dataCondition.date_from,
         onChange: this.#StartDateChangeHandler,
@@ -186,7 +185,7 @@ export default  class editElement extends AbstractSmartView{
       this.element.querySelector('#event-end-time-1'),
       {
         enableTime: true,
-        time_24hr: true,
+        'time_24hr': true,
         dateFormat: 'j F',
         defaultDate: this._dataCondition.date_to,
         onChange: this.#EndDateChangeHandler,

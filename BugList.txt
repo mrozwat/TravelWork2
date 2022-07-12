@@ -1,4 +1,4 @@
 1)некоректное оттображение типа маршрута а edit
 2) favorit button didnt work
-
+3) fllatpicker не срабатывает на time change
 
