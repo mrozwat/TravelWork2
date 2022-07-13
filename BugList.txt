@@ -2,3 +2,29 @@
 2) favorit button didnt work
 3) fllatpicker не срабатывает на time change
 
+#sortPoints = (sortTypeC) => {
+       switch (sortTypeC) {
+         case sortType.DAY:
+
+           this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.date_from - a.date_from);
+
+           break;
+
+         case sortType.DIFERENT:
+           this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.diferent - a.diferent);
+           break;
+
+         case sortType.PRICE:
+
+           this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.base_price - a.base_price);
+
+           break;
+
+         default:
+           //navsyki slycai
+           this.#dataPoints = [...this.#sourcedpoints];
+       }
+
+       this.#currentSortType = sortTypeC;
+     }
+

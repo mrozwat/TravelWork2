@@ -2,6 +2,7 @@ import  travelPoint  from '../view/travel-Point_Template.js';
 import editElement  from '../view/edit-Template.js';
 import{RenderPosition,renderElement,remove} from '../render/render.js';
 import { replace } from '../util/util.js';
+import { UserAction, UpdateType } from '../util/util.js';
 
 const Mode = {
   DEFAULT: 'DEFAULT',
@@ -103,11 +104,19 @@ destroy = () => {
 }
 
 #handleFavoriteClick = () => {
-  this.#changeData({...this.#point, is_favorite: !this.#point.is_favorite});
+  this.#changeData(
+    UserAction.UPDATE_TASK,
+    UpdateType.MINOR,
+    {...this.#point, isFavorite: !this.#point.isFavorite},
+  );
 }
 
 #handelSubmitForm = () => {
-//   this.#changeData({...this.#point, type:this.#pointEditComponent.value});
+  this.#changeData(
+    UserAction.UPDATE_TASK,
+    UpdateType.MINOR,
+    this.#point,
+  );
   this.#replaceEditToPoint();
 }
 

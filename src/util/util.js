@@ -9,19 +9,19 @@ function getRandomPositiveInteger (a, b) {
   return Math.floor(result);
 }
 
-const updateItem = (items, update) => {
-  const index = items.findIndex((item) => item.id === update.id);
+// const updateItem = (items, update) => {
+//   const index = items.findIndex((item) => item.id === update.id);
 
-  if (index === -1) {
-    return items;
-  }
+//   if (index === -1) {
+//     return items;
+//   }
 
-  return [
-    ...items.slice(0, index),
-    update,
-    ...items.slice(index + 1),
-  ];
-};
+//   return [
+//     ...items.slice(0, index),
+//     update,
+//     ...items.slice(index + 1),
+//   ];
+// };
 
 const replace = (newElement, oldElement) => {
   if (newElement === null || oldElement === null) {
@@ -47,7 +47,29 @@ const sortType = {
 };
 
 
+export const UserAction = {
+  UPDATE_POINT: 'UPDATE_POINT',
+  ADD_POINT: 'ADD_POINT',
+  DELETE_POINT: 'DELETE_POINT',
+};
 
+export const UpdateType = {
+  PATCH: 'PATCH',
+  MINOR: 'MINOR',
+  MAJOR: 'MAJOR',
+};
 
+const remove = (component) => {
+  if (component === null) {
+    return;
+  }
 
-export {getRandomPositiveInteger,updateItem,replace,sortType};
+  if (!(component instanceof AbstractElement)) {
+    throw new Error('Can remove only components');
+  }
+
+  component.element.remove();
+  component.removeElement();
+}; 
+
+export {getRandomPositiveInteger,replace,sortType,remove};
