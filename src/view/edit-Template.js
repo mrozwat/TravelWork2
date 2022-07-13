@@ -74,7 +74,6 @@ export default  class editElement extends AbstractSmartView{
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    console.log(this.#parseToRawData());
     this._callback.formSubmit(this.#parseToRawData());
   }
 
@@ -86,10 +85,10 @@ export default  class editElement extends AbstractSmartView{
     let price;
     let dateTo;
     let dateFrom;
-    if(!!this._dataCondition.date_to) {dateTo=this._dataCondition.date_to;} else {dateTo=this.#data.date_to;}
-    if(!!this._dataCondition.date_from) {dateFrom=this._dataCondition.date_from;} else {dateFrom=this.#data.date_from;}
-    if(!!this._dataCondition.isFavorite) {favorite=this._dataCondition.isFavorite;} else {favorite=this.#data.is_favorite;}
-    if(!!this._dataCondition.price) {price=this._dataCondition.price;} else {price=this.#data.base_price;}
+    if(this._dataCondition.date_to) {dateTo=this._dataCondition.date_to;} else {dateTo=this.#data.date_to;}
+    if(this._dataCondition.date_from) {dateFrom=this._dataCondition.date_from;} else {dateFrom=this.#data.date_from;}
+    if(this._dataCondition.isFavorite) {favorite=this._dataCondition.isFavorite;} else {favorite=this.#data.is_favorite;}
+    if(this._dataCondition.price) {price=this._dataCondition.price;} else {price=this.#data.base_price;}
     const rawData= {
       'base_price':Number(price),
       'date_from': dateFrom,
@@ -188,6 +187,7 @@ export default  class editElement extends AbstractSmartView{
     this.#setDatepickerEndTime();
     this.setEditClickHandler(this._callback.editClick);
     this.setFormSubmitHandler(this._callback.formSubmit);
+    this.setDeleteClickHandler(this._callback.deleteClick);
   }
 
   reset = (point) => {
@@ -240,6 +240,17 @@ export default  class editElement extends AbstractSmartView{
   delete this._dataCondition.timeFrom;
   delete this._dataCondition.timeTo;
 }
+
+setDeleteClickHandler = (callback) => {
+  this._callback.deleteClick = callback;
+  this.element.querySelector('.event__reset-btn').addEventListener('click', this.#formDeleteClickHandler);
+}
+
+#formDeleteClickHandler = (evt) => {
+  evt.preventDefault();
+  this._callback.deleteClick(this.#parseToRawData());
+}
+
 }
 
 

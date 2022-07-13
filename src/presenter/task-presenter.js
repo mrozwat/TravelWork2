@@ -30,6 +30,7 @@ init = (point) =>{
   this.#pointComponent = new travelPoint(point);
   this.#pointEditComponent = new editElement(point);
 
+  this.#pointEditComponent.setDeleteClickHandler(this.#handleDeleteClick);
 
   this.#pointComponent.setFavoriteClickHandler(this.#handleFavoriteClick);
 
@@ -117,6 +118,13 @@ destroy = () => {
   );
   this.#replaceEditToPoint();
 }
+
+#handleDeleteClick = (point) => {
+  this.#changeData(
+    UserAction.DELETE_POINT,
+    UpdateType.MINOR,
+    point,
+  );}
 
 }
 
