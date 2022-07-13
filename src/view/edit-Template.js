@@ -44,7 +44,8 @@ export default  class editElement extends AbstractSmartView{
        'timeFrom':data.date_from,
        'description':'',
        'checkedOffers': [],
-       'pictures':[]
+       'pictures':[],
+       'id':data.id,
      };
 
      offersList.forEach((element)=>{if(element.type=== this._dataCondition.type){this._dataCondition.checkedOffers.push(...element.offers);} else {}});
@@ -199,6 +200,8 @@ export default  class editElement extends AbstractSmartView{
   });
   delete this._dataCondition.timeFrom;
   delete this._dataCondition.timeTo;
+  console.log(this._dataCondition)
+  
 }
 
 #StartDateChangeHandler= ([userDate])=>{
