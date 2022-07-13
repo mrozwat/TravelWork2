@@ -74,7 +74,36 @@ export default  class editElement extends AbstractSmartView{
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this._callback.formSubmit(this.#data);
+    console.log(this.#parseToRawData());
+    this._callback.formSubmit(this.#parseToRawData());
+  }
+
+  #parseToRawData =()=>{
+    const ofer = [];
+    this._dataCondition.checkedOffers.forEach((data)=>{if(data.ceheck===true){ofer.push(data);}});
+    // ofer.forEach((data)=>{data.ceheck=true;});
+    let favorite;
+    let price;
+    let dateTo;
+    let dateFrom;
+    if(!!this._dataCondition.date_to) {dateTo=this._dataCondition.date_to;} else {dateTo=this.#data.date_to;}
+    if(!!this._dataCondition.date_from) {dateFrom=this._dataCondition.date_from;} else {dateFrom=this.#data.date_from;}
+    if(!!this._dataCondition.isFavorite) {favorite=this._dataCondition.isFavorite;} else {favorite=this.#data.is_favorite;}
+    if(!!this._dataCondition.price) {price=this._dataCondition.price;} else {price=this.#data.base_price;}
+    const rawData= {
+      'base_price':price,
+      'date_from': dateFrom,
+      'date_to': dateTo,
+      'destination':{'description':this._dataCondition.description,
+        'name': this._dataCondition.name,
+        'pictures': this._dataCondition.pictures,
+      },
+      'id':this._dataCondition.id,
+      'offers': ofer,
+      'type':this._dataCondition.type,
+      'is_favorite':favorite
+    };
+    return rawData;
   }
 
   setEditClickHandler = (callback) => {
@@ -200,8 +229,8 @@ export default  class editElement extends AbstractSmartView{
   });
   delete this._dataCondition.timeFrom;
   delete this._dataCondition.timeTo;
-  console.log(this._dataCondition)
-  
+  console.log(this._dataCondition);
+
 }
 
 #StartDateChangeHandler= ([userDate])=>{

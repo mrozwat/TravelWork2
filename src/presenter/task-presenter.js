@@ -43,10 +43,8 @@ init = (point) =>{
     this.#replaceEditToPoint();
   });
 
-  this.#pointEditComponent.setFormSubmitHandler( () => {
-    this.#replaceEditToPoint();
-  });
- 
+  this.#pointEditComponent.setFormSubmitHandler(this.#handelSubmitForm);
+
 
   if (prevPointComponent === null || prevEditComponent === null) {
     renderElement(this.#pointListContainer, this.#pointComponent, RenderPosition.BEFOREEND);
@@ -105,19 +103,39 @@ destroy = () => {
 
 #handleFavoriteClick = () => {
   this.#changeData(
-    UserAction.UPDATE_TASK,
+    UserAction.UPDATE_POINT,
     UpdateType.MINOR,
-    {...this.#point, isFavorite: !this.#point.isFavorite},
+    {...this.#point, is_favorite: !this.#point.is_favorite},
   );
 }
 
-#handelSubmitForm = () => {
+#handelSubmitForm = (update12) => {
   this.#changeData(
-    UserAction.UPDATE_TASK,
-    UpdateType.MINOR,
-    this.#point,
+    UserAction.UPDATE_POINT,
+    UpdateType.MINOR ,
+    update12
   );
   this.#replaceEditToPoint();
+}
+
+#parseToRawData =()=>{
+  let ofer = [];
+  this.#pointEditComponent._dataCondition.checkedOffers.forEach((data)=>{if(data.ceheck===true){ofer.push(data)}});
+  ofer.forEach((data)=>{data.ceheck=true})
+  const rawData= {
+    'base_price':this.#pointEditComponent._dataCondition.price,
+    'date_from': this.#pointEditComponent._dataCondition.date_from,
+    'date_to': this.#pointEditComponent._dataCondition.date_to,
+    'destination':{'description':this.#pointEditComponent._dataCondition.description,
+      'name': this.#pointEditComponent._dataCondition.name,
+      'pictures': this.#pointEditComponent._dataCondition.pictures,
+    },
+    'id':this.#pointEditComponent._dataCondition.id,
+    'offers': ofer,
+    'type':this.#pointEditComponent._dataCondition.type,
+    'is_favorite':this.#pointEditComponent._dataCondition.isFavorite
+  };
+  return rawData;
 }
 
 }

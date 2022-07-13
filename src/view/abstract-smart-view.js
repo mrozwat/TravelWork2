@@ -9,7 +9,6 @@ export default class AbstractSmartView extends AbstractElement {
       }
 
       this._dataCondition = {...this._dataCondition, ...update};
-
       if (justDataUpdating) {
         return;
       }

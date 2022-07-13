@@ -84,10 +84,6 @@ export default class BoardPresenter {
           renderElement(menuBlock,new InfoAbautTrip(this.#PointModel),RenderPosition.BEFOREEND);}
       }
 
-      #clearPointList = () => {
-        this.#pointPresenter.forEach((presenter) => presenter.destroy());
-        this.#pointPresenter.clear();
-      }
 
       #handleModeChange = () => {
         this.#pointPresenter.forEach((presenter) => presenter.resetView());
@@ -95,13 +91,13 @@ export default class BoardPresenter {
 
       #handleViewAction = (actionType, updateType, update) => {
         switch (actionType) {
-          case UserAction.UPDATE_TASK:
+          case UserAction.UPDATE_POINT:
             this.#PointModel.updateTask(updateType, update);
             break;
-          case UserAction.ADD_TASK:
+          case UserAction.ADD_POINT:
             this.#PointModel.addTask(updateType, update);
             break;
-          case UserAction.DELETE_TASK:
+          case UserAction.DELETE_POINT:
             this.#PointModel.deleteTask(updateType, update);
             break;
         }

@@ -9,7 +9,7 @@ const dayjs = require('dayjs');
 
 function getTestPoint (){
   const testPointArray =[];
-  const random = getRandomPositiveInteger(0,5);
+  const random = getRandomPositiveInteger(1,2);
   for (let i=0;i<random;i++){
     const pointTest ={
       'id': nanoid(),
@@ -36,11 +36,7 @@ const rawTestData = getTestPoint();
 const testData = rawTestData.slice().sort((a, b) => b.date_from - a.date_from);//sort fo date
 
 //add new key to data with value
-testData.forEach((element) =>{
-  const a=dayjs(element.date_from);
-  const b =dayjs(element.date_to);
-  element.diferent=b.diff(a,'minute');
-});
+
 
 
 const offersList = [
