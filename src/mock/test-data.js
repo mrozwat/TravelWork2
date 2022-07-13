@@ -9,7 +9,7 @@ const dayjs = require('dayjs');
 
 function getTestPoint (){
   const testPointArray =[];
-  const random = getRandomPositiveInteger(1,2);
+  const random = getRandomPositiveInteger(1,5);
   for (let i=0;i<random;i++){
     const pointTest ={
       'id': nanoid(),

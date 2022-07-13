@@ -8,6 +8,7 @@ export default  class InfoAbautTrip extends AbstractElement {
   constructor(data){
     super();
     this.#data=data;
+
   }
 
   get template () { return InfoAbautTripHtml(this.#data);}
@@ -15,15 +16,16 @@ export default  class InfoAbautTrip extends AbstractElement {
 }
 
 function InfoAbautTripHtml (Data) {
+console.log(Data.points)
   const infoAboutTripHtml =`
   <section class="trip-main__trip-info  trip-info">
 <div class="trip-info__main">
-  <h1 class="trip-info__title">${tripCityList(Data)}</h1>
+  <h1 class="trip-info__title">${tripCityList(Data.points)}</h1>
 
-  <p class="trip-info__dates">${dayjs(Data[0].date_from).format('MMM D')}&nbsp;&mdash;&nbsp;${dayjs(Data[Data.length-1].date_to).format('D MMM')}</p>
+  <p class="trip-info__dates">${dayjs(Data.points[0].date_from).format('MMM D')}&nbsp;&mdash;&nbsp;${dayjs(Data.points[Data.points.length-1].date_to).format('D MMM')}</p>
 </div>
 <p class="trip-info__cost">
-              Total: €&nbsp;<span class="trip-info__cost-value">${tripCost(Data)}</span>
+              Total: €&nbsp;<span class="trip-info__cost-value">${tripCost(Data.points)}</span>
             </p>
 </section>
 `;
@@ -42,14 +44,14 @@ function tripCityList (Data) {
 
 
   else if (length===2 && Data[0].destination.name!=='' && Data[1].destination.name!=='') {
-    cityList = `${`${Data[0].destination.name} ${Data[1].destination.name}`}`;
+    cityList = `${`${Data[1].destination.name} ${Data[0].destination.name}`}`;
   }
 
   else if (length===3 && Data[0].destination.name!=='' && Data[1].destination.name!=='' && Data[2].destination.name!=='') {
-    cityList = `${`${Data[0].destination.name} ${Data[1].destination.name} ${Data[2].destination.name}`}`;
+    cityList = `${`${Data[2].destination.name}-${Data[1].destination.name}-${Data[0].destination.name}`}`;
   }
 
-  else if (length>3 && Data[0].destination.name!=='') { cityList = `${`${Data[0].destination.name}...${Data[Data.length-1].destination.name}`}`;}
+  else if (length>3 && Data[0].destination.name!=='') { cityList = `${`${Data[Data.length-1].destination.name}...${Data[0].destination.name}`}`;}
 
 
   return cityList;

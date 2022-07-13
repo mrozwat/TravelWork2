@@ -91,7 +91,7 @@ export default  class editElement extends AbstractSmartView{
     if(!!this._dataCondition.isFavorite) {favorite=this._dataCondition.isFavorite;} else {favorite=this.#data.is_favorite;}
     if(!!this._dataCondition.price) {price=this._dataCondition.price;} else {price=this.#data.base_price;}
     const rawData= {
-      'base_price':price,
+      'base_price':Number(price),
       'date_from': dateFrom,
       'date_to': dateTo,
       'destination':{'description':this._dataCondition.description,

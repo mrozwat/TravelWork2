@@ -118,25 +118,5 @@ destroy = () => {
   this.#replaceEditToPoint();
 }
 
-#parseToRawData =()=>{
-  let ofer = [];
-  this.#pointEditComponent._dataCondition.checkedOffers.forEach((data)=>{if(data.ceheck===true){ofer.push(data)}});
-  ofer.forEach((data)=>{data.ceheck=true})
-  const rawData= {
-    'base_price':this.#pointEditComponent._dataCondition.price,
-    'date_from': this.#pointEditComponent._dataCondition.date_from,
-    'date_to': this.#pointEditComponent._dataCondition.date_to,
-    'destination':{'description':this.#pointEditComponent._dataCondition.description,
-      'name': this.#pointEditComponent._dataCondition.name,
-      'pictures': this.#pointEditComponent._dataCondition.pictures,
-    },
-    'id':this.#pointEditComponent._dataCondition.id,
-    'offers': ofer,
-    'type':this.#pointEditComponent._dataCondition.type,
-    'is_favorite':this.#pointEditComponent._dataCondition.isFavorite
-  };
-  return rawData;
-}
-
 }
 

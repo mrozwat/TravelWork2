@@ -20,10 +20,12 @@ export default class BoardPresenter {
     #currentSortType = sortType.DAY;
     #PointModel= null;
     #noPoint = new welcomeMesage()
+    #TripInfo=null;
     constructor(boardContainer,pointModel) {
       this.#boardContainer = boardContainer;
       this.#PointModel = pointModel;
       this.#PointModel.addObserver(this.#handleModelEvent);
+      this.#TripInfo= new InfoAbautTrip(this.#PointModel);
     }
 
     get points (){
@@ -67,22 +69,20 @@ export default class BoardPresenter {
 
       #renderWelcomeMessage = () => {
         // Метод для рендеринга заглушки
-        if (this.#PointModel.length===0) {renderElement(this.#boardContainer,this.#noPoint, RenderPosition.BEFOREEND);}
+        renderElement(this.#boardContainer,this.#noPoint, RenderPosition.BEFOREEND);
       }
 
       #renderBoard = () => {
         // Метод для инициализации (начала работы) модуля
         const points = this.points;
         if (points.length===0) {this.#renderWelcomeMessage();}
-        this.#renderInfoAbautTrip();
+        if (points.length!==0) {this.#renderInfoAbautTrip();}
         this.#renderSortElement();
         this.#renderPoints();
       }
 
       #renderInfoAbautTrip = ()=> {
-        if (this.#PointModel.length>0) {
-          renderElement(menuBlock,new InfoAbautTrip(this.#PointModel),RenderPosition.BEFOREEND);}
-      }
+        renderElement(menuBlock,this.#TripInfo,RenderPosition.BEFOREEND);}
 
 
       #handleModeChange = () => {
@@ -135,7 +135,7 @@ export default class BoardPresenter {
 
        remove(this.#sortComponent);
        remove(this.#noPoint);
-
+       remove(this.#TripInfo)
 
        if (resetSortType) {
          this.#currentSortType = sortType.DAY;
