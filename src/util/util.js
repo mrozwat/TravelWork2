@@ -70,6 +70,12 @@ const remove = (component) => {
 
   component.element.remove();
   component.removeElement();
-}; 
+};
 
-export {getRandomPositiveInteger,replace,sortType,remove};
+const FilterType = {
+  ALL: 'all',
+  FUTURE: 'future',
+  PAST: 'past',
+};
+
+export {getRandomPositiveInteger,replace,sortType,remove,FilterType};

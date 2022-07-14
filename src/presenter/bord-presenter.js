@@ -1,16 +1,16 @@
 import{RenderPosition,renderElement} from '../render/render.js';
 import menuElement from '../view/menuTemplate.js';
-import filtersElement  from '../view/filters-Template.js';
 import SortElement  from '../view/sort-Template.js';
 import { addNew } from '../view/Add-New-Template.js'; //v konce // render(addNewBlock,addNew(),RenderPosition.BEFOREEND);
 import  InfoAbautTrip from '../view/info-about-trip.js';
 import welcomeMesage from '../view/welcomeMesage.js';
 import TravelPontPresenter from './task-presenter.js';
-import { sortType,UpdateType,UserAction,remove} from '../util/util.js';
+import { sortType,UpdateType,UserAction,remove,FilterType} from '../util/util.js';
+import {filter} from '../util/filter'
 
 //const
 const menuBlock =document.querySelector('.trip-controls__navigation');
-const filterBlock =document.querySelector('.trip-controls__filters');
+
 
 
 export default class BoardPresenter {
@@ -21,27 +21,33 @@ export default class BoardPresenter {
     #PointModel= null;
     #noPoint = new welcomeMesage()
     #TripInfo=null;
-    constructor(boardContainer,pointModel) {
+    #filterModel = null;
+    constructor(boardContainer,pointModel,filtreModel) {
+      this.#filterModel = filtreModel;
       this.#boardContainer = boardContainer;
       this.#PointModel = pointModel;
       this.#PointModel.addObserver(this.#handleModelEvent);
       this.#TripInfo= new InfoAbautTrip(this.#PointModel);
+      this.#filterModel.addObserver(this.#handleModelEvent);
     }
 
     get points (){
+      const filterType = this.#filterModel.filter;
+      const points = this.#PointModel.points;
+      const filteredPoints = filter[filterType](points);
+
       switch (this.#currentSortType) {
         case sortType.DIFERENT:
-          return this.#PointModel.points.slice().sort((a, b) => b.diferent - a.diferent);
+          return filteredPoints.sort((a, b) => b.diferent - a.diferent);
         case sortType.PRICE:
-          return [...this.#PointModel.points].slice().sort((a, b) => b.base_price - a.base_price);
+          return filteredPoints.sort((a, b) => b.base_price - a.base_price);
       }
-      return this.#PointModel.points;
+      return filteredPoints;
     }
 
       init = () => {
         // Метод для инициализации (начала работы) модуля
         renderElement(menuBlock,new menuElement(),RenderPosition.BEFOREEND);
-        renderElement(filterBlock,new filtersElement(),RenderPosition.BEFOREEND);
         this.#renderBoard();
       }
 
