@@ -7,6 +7,7 @@ import AbstractSmartView from './abstract-smart-view.js';
 const dayjs = require('dayjs');
 import flatpickr from 'flatpickr';
 import '../../node_modules/flatpickr/dist/flatpickr.min.css';
+import he from 'he';
 
 //element.querySelector('input[name="event-type"]:checked').value;
 
@@ -68,7 +69,8 @@ export default  class editElement extends AbstractSmartView{
    }
 
    get template () {
-     return edit(this._dataCondition,this.#descriptionList);}
+     return edit(this._dataCondition,this.#descriptionList);
+   }
 
   setFormSubmitHandler = (callback) => {
     this._callback.formSubmit = callback;
@@ -276,7 +278,7 @@ function edit (datacondition,allCitys){
     <label class="event__label  event__type-output" for="event-destination-1">
     ${datacondition.type}
     </label>
-    <input  class="event__input  event__input--destination" list="destination-list-1" id="event-destination-1" type="text" name="event-destination" value="${datacondition.name}"">
+    <input  class="event__input  event__input--destination" list="destination-list-1" id="event-destination-1" type="text" name="event-destination" value="${he.encode(datacondition.name)}"">
     <datalist id="destination-list-1">
     <select>
      ${setoption(allCitys)}

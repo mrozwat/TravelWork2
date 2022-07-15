@@ -1,5 +1,6 @@
 import { offersTemplate } from './travelPoint/offersTemplate.js';
 import AbstractElement from './abstract_view.js';
+import he from 'he';
 const dayjs = require('dayjs');
 const relativeTime = require('dayjs/plugin/relativeTime');
 dayjs.extend(relativeTime);
@@ -49,7 +50,7 @@ function travelPoint(data)
   <div class="event__type">
     <img class="event__type-icon" width="42" height="42" src="img/icons/${data.type.toLowerCase()}.png" alt="Event type icon">
   </div>
-  <h3 class="event__title">${data.destination.name}</h3>
+  <h3 class="event__title">${he.encode(data.destination.name)}</h3>
   <div class="event__schedule">
     <p class="event__time">
       <time class="event__start-time" datetime="${data.date_from}">${dayjs(data.date_from).format('H:mm')}</time>
