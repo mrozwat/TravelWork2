@@ -85,7 +85,7 @@ export default class BoardPresenter {
         // Метод для инициализации (начала работы) модуля
         const points = this.points;
         if (points.length===0) {this.#renderWelcomeMessage();}
-        if (points.length!==0) {this.#renderInfoAbautTrip();}
+        this.#renderInfoAbautTrip();
         this.#renderSortElement();
         this.#renderPoints();
       }

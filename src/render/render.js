@@ -1,4 +1,7 @@
+
 import AbstractElement from '../view/abstract_view.js';
+
+
 
 const RenderPosition ={
   BEFOREBEGIN:'beforebegin',
@@ -42,7 +45,10 @@ const remove = (component) => {
     throw new Error('Can remove only components');
   }
 
-  component.element.remove();
+  
+    component.element.remove();
+ 
+
   component.removeElement();
 };
 

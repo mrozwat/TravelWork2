@@ -16,7 +16,9 @@ export default  class InfoAbautTrip extends AbstractElement {
 }
 
 function InfoAbautTripHtml (Data) {
-  const infoAboutTripHtml =`
+  if (Data.points.length===0) {return '<section></section> ';}
+  else{
+    const infoAboutTripHtml =`
   <section class="trip-main__trip-info  trip-info">
 <div class="trip-info__main">
   <h1 class="trip-info__title">${tripCityList(Data.points)}</h1>
@@ -28,7 +30,7 @@ function InfoAbautTripHtml (Data) {
             </p>
 </section>
 `;
-  return infoAboutTripHtml;
+    return infoAboutTripHtml;}
 }
 
 function tripCityList (Data) {

@@ -39,7 +39,8 @@ export default class PointNewPresenter {
     this.#pointEditComponent.setFormSubmitHandler(this.#handleFormSubmit);
     this.#pointEditComponent.setDeleteClickHandler(this.#handleDeleteClick);
 
-    renderElement(this.#pointListContainer, this.#pointEditComponent, RenderPosition.AFTERBEGIN);
+    const renderPosition = document.querySelector('.trip-events__trip-sort');
+    renderElement(renderPosition, this.#pointEditComponent, RenderPosition.BEFOREEND);
 
     document.addEventListener('keydown', this.#escKeyDownHandler);
   }
