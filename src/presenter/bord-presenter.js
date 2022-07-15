@@ -31,7 +31,7 @@ export default class BoardPresenter {
       this.#PointModel.addObserver(this.#handleModelEvent);
       this.#TripInfo= new InfoAbautTrip(this.#PointModel);
       this.#filterModel.addObserver(this.#handleModelEvent);
-      this.#pointNewPresenter = new PointNewPresenter(this.#boardContainer, this.#handleViewAction);
+
     }
 
     get points (){
@@ -59,6 +59,9 @@ export default class BoardPresenter {
         this.#sortComponent = new SortElement(this.#currentSortType);
         this.#sortComponent.setSortTypeChangeHandler(this.#handleSortTypeChange);
         renderElement(this.#boardContainer, this.#sortComponent, RenderPosition.AFTERBEGIN);
+        const renderPosition = document.querySelector('.trip-events__trip-sort');
+        this.#pointNewPresenter = new PointNewPresenter(renderPosition, this.#handleViewAction);
+
       }
 
       #renderPointComponent = (data) => {
