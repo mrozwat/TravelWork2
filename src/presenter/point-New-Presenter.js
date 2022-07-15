@@ -39,7 +39,7 @@ export default class PointNewPresenter {
     this.#pointEditComponent.setFormSubmitHandler(this.#handleFormSubmit);
     this.#pointEditComponent.setDeleteClickHandler(this.#handleDeleteClick);
 
-    renderElement(this.#pointListContainer, this.#pointEditComponent, RenderPosition.BEFOREEND);
+    renderElement(this.#pointListContainer, this.#pointEditComponent, RenderPosition.AFTERBEGIN);
 
     document.addEventListener('keydown', this.#escKeyDownHandler);
   }

@@ -59,8 +59,7 @@ export default class BoardPresenter {
         this.#sortComponent = new SortElement(this.#currentSortType);
         this.#sortComponent.setSortTypeChangeHandler(this.#handleSortTypeChange);
         renderElement(this.#boardContainer, this.#sortComponent, RenderPosition.AFTERBEGIN);
-        const renderPosition = document.querySelector('.trip-events__trip-sort');
-        this.#pointNewPresenter = new PointNewPresenter(renderPosition, this.#handleViewAction);
+        this.#pointNewPresenter = new PointNewPresenter(this.#boardContainer, this.#handleViewAction);
 
       }
 
