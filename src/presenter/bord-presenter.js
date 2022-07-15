@@ -1,16 +1,17 @@
 import{RenderPosition,renderElement} from '../render/render.js';
 import menuElement from '../view/menuTemplate.js';
 import SortElement  from '../view/sort-Template.js';
-import { addNew } from '../view/Add-New-Template.js'; //v konce // render(addNewBlock,addNew(),RenderPosition.BEFOREEND);
 import  InfoAbautTrip from '../view/info-about-trip.js';
 import welcomeMesage from '../view/welcomeMesage.js';
 import TravelPontPresenter from './task-presenter.js';
 import { sortType,UpdateType,UserAction,remove,FilterType} from '../util/util.js';
-import {filter} from '../util/filter'
+import {filter} from '../util/filter';
+import PointNewPresenter from './point-New-Presenter';
+
+// render(addNewBlock,addNew(),RenderPosition.BEFOREEND); addnew
 
 //const
 const menuBlock =document.querySelector('.trip-controls__navigation');
-
 
 
 export default class BoardPresenter {
@@ -22,6 +23,7 @@ export default class BoardPresenter {
     #noPoint = new welcomeMesage()
     #TripInfo=null;
     #filterModel = null;
+    #pointNewPresenter = null;
     constructor(boardContainer,pointModel,filtreModel) {
       this.#filterModel = filtreModel;
       this.#boardContainer = boardContainer;
@@ -29,6 +31,7 @@ export default class BoardPresenter {
       this.#PointModel.addObserver(this.#handleModelEvent);
       this.#TripInfo= new InfoAbautTrip(this.#PointModel);
       this.#filterModel.addObserver(this.#handleModelEvent);
+      this.#pointNewPresenter = new PointNewPresenter(this.#boardContainer, this.#handleViewAction);
     }
 
     get points (){
@@ -88,7 +91,8 @@ export default class BoardPresenter {
       }
 
       #renderInfoAbautTrip = ()=> {
-        renderElement(menuBlock,this.#TripInfo,RenderPosition.BEFOREEND);}
+        renderElement(menuBlock,this.#TripInfo,RenderPosition.BEFOREEND);
+      }
 
 
       #handleModeChange = () => {
@@ -135,18 +139,23 @@ export default class BoardPresenter {
      }
 
      #clearBoard = ({resetSortType = false} = {}) => {
-
+       this.#pointNewPresenter.destroy();
        this.#pointPresenter.forEach((point) => point.destroy());
        this.#pointPresenter.clear();
 
        remove(this.#sortComponent);
        remove(this.#noPoint);
-       remove(this.#TripInfo)
+       remove(this.#TripInfo);
 
        if (resetSortType) {
          this.#currentSortType = sortType.DAY;
        }
      }
 
+     createTask = () => {
+       this.#currentSortType = sortType.DEFAULT;
+       this.#filterModel.setFilter(UpdateType.MAJOR, FilterType.ALL);
+       this.#pointNewPresenter.init();
+     }
 }
 
