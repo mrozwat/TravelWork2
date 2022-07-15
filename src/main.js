@@ -20,3 +20,10 @@ const BoardPresenterInstans =  new BoardPresenter (bordContainer,pointModel,filt
 BoardPresenterInstans.init();
 const filterPresenter = new FilterPresenter(filterBlock, filtreModele, pointModel);
 filterPresenter.init();
+
+
+//add point
+document.querySelector('.trip-main__event-add-btn').addEventListener('click', (evt) => {
+  evt.preventDefault();
+  BoardPresenterInstans.createTask();
+});

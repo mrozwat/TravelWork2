@@ -36,6 +36,8 @@ export default  class editElement extends AbstractSmartView{
   }
 
    #setConditionData =(data)=>{
+
+
      this._dataCondition= {
        'name': data.destination.name,
        'type':data.type.toLowerCase().toString(),
@@ -62,6 +64,7 @@ export default  class editElement extends AbstractSmartView{
 
      }});
      return this._dataCondition;
+
    }
 
    get template () {
