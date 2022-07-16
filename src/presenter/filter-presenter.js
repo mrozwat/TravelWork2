@@ -44,6 +44,9 @@ export default class FilterPresenter {
     this.#filterComponent = new filtersElement(filters, this.#filterModel.filter);
     this.#filterComponent.setFilterTypeChangeHandler(this.#handleFilterTypeChange);
 
+    this.#pointModel.addObserver(this.#handleModelEvent);
+    this.#filterModel.addObserver(this.#handleModelEvent);
+
     if (prevFilterComponent === null) {
       renderElement(this.#filterContainer, this.#filterComponent, RenderPosition.BEFOREEND);
       return;
@@ -63,5 +66,15 @@ export default class FilterPresenter {
     }
 
     this.#filterModel.setFilter(UpdateType.MAJOR, filterType);
+  }
+
+  destroy = () => {
+    remove(this.#filterComponent);
+    this.#filterComponent = null;
+
+    this.#pointModel.removeObserver(this.#handleModelEvent);
+    this.#filterModel.removeObserver(this.#handleModelEvent);
+
+    this.#filterModel.setFilter(UpdateType.MAJOR, FilterType.ALL);
   }
 }

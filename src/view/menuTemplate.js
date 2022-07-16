@@ -1,11 +1,29 @@
 import AbstractElement from './abstract_view';
-
+import { MenuItem } from '../util/util';
 
 export default  class menuElement extends AbstractElement {
 
 
   get template () { return menu();}
 
+  setMenuClickHandler = (callback) => {
+    this._callback.menuClick = callback;
+    this.element.addEventListener('click', this.#menuClickHandler);
+  }
+
+  setMenuItem = (menuItem) => {
+    const item = this.element.querySelector('.trip-controls__trip-tabs');
+
+    if (item !== null) {
+      item.checked = true;
+    }
+  }
+
+  #menuClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.menuClick(evt.target.dataset.type);
+    console.log(evt.target.dataset.type)
+  }
 
 }
 
@@ -16,9 +34,12 @@ function menu (){
       <div class="trip-controls__navigation">
         <h2 class="visually-hidden">Switch trip view</h2>
         <nav class="trip-controls__trip-tabs  trip-tabs">
-        <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">Table</a>
-        <a class="trip-tabs__btn" href="#">Stats</a>
-      </nav>
+
+
+        <a class="trip-tabs__btn  trip-tabs__btn--active" href="#" data-type="${MenuItem.POINTS}">Table</a>
+        <a class="trip-tabs__btn" href="#" data-type="${MenuItem.STATISTICS}" >Stats</a>
+      
+        </nav>
   </div>`;}
 
 

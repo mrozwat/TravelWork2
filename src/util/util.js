@@ -78,4 +78,9 @@ const FilterType = {
   PAST: 'past',
 };
 
-export {getRandomPositiveInteger,replace,sortType,remove,FilterType};
+const MenuItem = {
+  POINTS: 'points',
+  STATISTICS: 'STATISTICS',
+};
+
+export {getRandomPositiveInteger,replace,sortType,remove,FilterType,MenuItem};

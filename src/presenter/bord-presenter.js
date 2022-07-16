@@ -1,5 +1,4 @@
 import{RenderPosition,renderElement} from '../render/render.js';
-import menuElement from '../view/menuTemplate.js';
 import SortElement  from '../view/sort-Template.js';
 import  InfoAbautTrip from '../view/info-about-trip.js';
 import welcomeMesage from '../view/welcomeMesage.js';
@@ -28,9 +27,7 @@ export default class BoardPresenter {
       this.#filterModel = filtreModel;
       this.#boardContainer = boardContainer;
       this.#PointModel = pointModel;
-      this.#PointModel.addObserver(this.#handleModelEvent);
       this.#TripInfo= new InfoAbautTrip(this.#PointModel);
-      this.#filterModel.addObserver(this.#handleModelEvent);
 
     }
 
@@ -45,12 +42,13 @@ export default class BoardPresenter {
         case sortType.PRICE:
           return filteredPoints.sort((a, b) => b.base_price - a.base_price);
       }
+      this.#filterModel.addObserver(this.#handleModelEvent);
+      this.#PointModel.addObserver(this.#handleModelEvent);
       return filteredPoints;
     }
 
       init = () => {
         // Метод для инициализации (начала работы) модуля
-        renderElement(menuBlock,new menuElement(),RenderPosition.BEFOREEND);
         this.#renderBoard();
       }
 
@@ -155,9 +153,14 @@ export default class BoardPresenter {
      }
 
      createTask = () => {
-       this.#currentSortType = sortType.DEFAULT;
-       this.#filterModel.setFilter(UpdateType.MAJOR, FilterType.ALL);
+       //  this.#currentSortType = sortType.DEFAULT;
        this.#pointNewPresenter.init();
+     }
+
+     destroy = () => {
+       this.#clearBoard({resetSortType: true});
+       this.#PointModel.removeObserver(this.#handleModelEvent);
+       this.#filterModel.removeObserver(this.#handleModelEvent);
      }
 }
 
