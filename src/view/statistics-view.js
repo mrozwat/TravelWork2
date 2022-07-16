@@ -3,6 +3,7 @@ import flatpickr from 'flatpickr';
 import AbstractSmartView from './abstract-smart-view.js';
 import '../../node_modules/flatpickr/dist/flatpickr.min.css';
 import Chart from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 function createStatisticsTemplate (){ return`<section class="statistics">
 <h2 class="visually-hidden">Trip statistics</h2>
