@@ -48,11 +48,12 @@ const handleSiteMenuClick = (menuItem) => {
 siteMenuComponent.setMenuClickHandler(handleSiteMenuClick);
 
 //VERNUT
-filterPresenter.init();
-BoardPresenterInstans.init();
+// filterPresenter.init();
+// BoardPresenterInstans.init();
+const stats = new StatisticsView(pointModel.points);
+renderElement(bordContainer,stats,RenderPosition.BEFOREEND);
+stats.init();
 
-
-// renderElement(filterBlock,new StatisticsView(pointModel.points),RenderPosition.BEFOREEND);
 //add point
 document.querySelector('.trip-main__event-add-btn').addEventListener('click', (evt) => {
   evt.preventDefault();
