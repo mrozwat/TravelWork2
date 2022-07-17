@@ -36,8 +36,8 @@ function menu (){
         <nav class="trip-controls__trip-tabs  trip-tabs">
 
 
-        <a class="trip-tabs__btn  trip-tabs__btn--active" href="#" data-type="${MenuItem.POINTS}">Table</a>
-        <a class="trip-tabs__btn" href="#" data-type="${MenuItem.STATISTICS}" >Stats</a>
+        <a class="trip-tabs__btn " href="#" data-type="${MenuItem.POINTS}" id="table" >Table</a>
+        <a class="trip-tabs__btn" href="#" data-type="${MenuItem.STATISTICS}"id="stats" >Stats</a>
       
         </nav>
   </div>`;}
