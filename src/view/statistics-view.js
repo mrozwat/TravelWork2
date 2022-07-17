@@ -36,7 +36,7 @@ export default class StatisticsView extends AbstractSmartView {
     return createStatisticsTemplate(this._data);
   }
 
-  init =()=>{this.#setCharts()}
+  init =()=>{this.#setCharts();}
 
   removeElement = () => {
     super.removeElement();
@@ -44,26 +44,169 @@ export default class StatisticsView extends AbstractSmartView {
 
   }
 
+  #dataForMoney =() =>{
+
+    const FlightData= [];
+    this._data.forEach((element) => {
+      if (element.type ==='Flight')
+      {FlightData.push(element.base_price);}
+    });
+    const moneyResult = FlightData.reduce((sum, elem) => sum + elem, 0);
+
+    const StayData= [];
+    this._data.forEach((element) => {
+      if (element.type ==='Check-in')
+      {StayData.push(element.base_price);}
+    });
+    const stayResult = StayData.reduce((sum, elem) => sum + elem, 0);
+
+    const driveData= [];
+    this._data.forEach((element) => {
+      if (element.type ==='Drive')
+      {driveData.push(element.base_price);}
+    });
+    const driveResult = driveData.reduce((sum, elem) => sum + elem, 0);
+
+    const rideData= [];
+    this._data.forEach((element) => {
+      if (element.type ==='Train')
+      {rideData.push(element.base_price);}
+    });
+    const rideResult = rideData.reduce((sum, elem) => sum + elem, 0);
+
+
+    const TaxiData= [];
+    this._data.forEach((element) => {
+      if (element.type ==='Taxi')
+      {TaxiData.push(element.base_price);}
+    });
+    const taxiResult = TaxiData.reduce((sum, elem) => sum + elem, 0);
+
+    const BusData= [];
+    this._data.forEach((element) => {
+      if (element.type ==='Bus')
+      {BusData.push(element.base_price);}
+    });
+    const busResult = BusData.reduce((sum, elem) => sum + elem, 0);
+
+    const shipData= [];
+    this._data.forEach((element) => {
+      if (element.type ==='Ship')
+      {shipData.push(element.base_price);}
+    });
+    const shipResult = shipData.reduce((sum, elem) => sum + elem, 0);
+
+    const lookData= [];
+    this._data.forEach((element) => {
+      if (element.type ==='Sightseeing')
+      {lookData.push(element.base_price);}
+    });
+    const lookResult = lookData.reduce((sum, elem) => sum + elem, 0);
+
+    const restoranData= [];
+    this._data.forEach((element) => {
+      if (element.type ==='Restaurant')
+      {restoranData.push(element.base_price);}
+    });
+    const restoranResult = restoranData.reduce((sum, elem) => sum + elem, 0);
+
+
+    const finalyStats =[moneyResult,stayResult,driveResult,rideResult,taxiResult,busResult,shipResult,lookResult,restoranResult];
+    return finalyStats;
+  }
+
+ #dataFortypeChart =()=>{
+   const FlightData= [];
+   this._data.forEach((element) => {
+     if (element.type ==='Flight')
+     {FlightData.push(1);}
+   });
+   const moneyResult = FlightData.reduce((sum, elem) => sum + elem, 0);
+
+   const StayData= [];
+   this._data.forEach((element) => {
+     if (element.type ==='Check-in')
+     {StayData.push(1);}
+   });
+   const stayResult = StayData.reduce((sum, elem) => sum + elem, 0);
+
+   const driveData= [];
+   this._data.forEach((element) => {
+     if (element.type ==='Drive')
+     {driveData.push(1);}
+   });
+   const driveResult = driveData.reduce((sum, elem) => sum + elem, 0);
+
+   const rideData= [];
+   this._data.forEach((element) => {
+     if (element.type ==='Train')
+     {rideData.push(1);}
+   });
+   const rideResult = rideData.reduce((sum, elem) => sum + elem, 0);
+
+
+   const TaxiData= [];
+   this._data.forEach((element) => {
+     if (element.type ==='Taxi')
+     {TaxiData.push(1);}
+   });
+   const taxiResult = TaxiData.reduce((sum, elem) => sum + elem, 0);
+
+   const BusData= [];
+   this._data.forEach((element) => {
+     if (element.type ==='Bus')
+     {BusData.push(1);}
+   });
+   const busResult = BusData.reduce((sum, elem) => sum + elem, 0);
+
+   const shipData= [];
+   this._data.forEach((element) => {
+     if (element.type ==='Ship')
+     {shipData.push(1);}
+   });
+   const shipResult = shipData.reduce((sum, elem) => sum + elem, 0);
+
+   const lookData= [];
+   this._data.forEach((element) => {
+     if (element.type ==='Sightseeing')
+     {lookData.push(1);}
+   });
+   const lookResult = lookData.reduce((sum, elem) => sum + elem, 0);
+
+   const restoranData= [];
+   this._data.forEach((element) => {
+     if (element.type ==='Restaurant')
+     {restoranData.push(1);}
+   });
+   const restoranResult = restoranData.reduce((sum, elem) => sum + elem, 0);
+
+
+   const finalyStats =[moneyResult,stayResult,driveResult,rideResult,taxiResult,busResult,shipResult,lookResult,restoranResult];
+   return finalyStats;
+ }
 
   #setCharts = () => {
     const moneyCtx =document.querySelector('#money');
-    console.log(moneyCtx);
     const transportCtx =document.querySelector('#type');
     const timeSpendCtx =document.querySelector('#time');
+    this.#dataForMoney();
     // Рассчитаем высоту канваса в зависимости от того, сколько данных в него будет передаваться
     const BAR_HEIGHT = 55;
     moneyCtx.width = BAR_HEIGHT * 6;
     transportCtx.width = BAR_HEIGHT * 4;
     timeSpendCtx.width = BAR_HEIGHT * 4;
 
+    const moneyChartData = this.#dataForMoney();
+
+
     const moneyChart = new Chart(moneyCtx, {
       plugins: [ChartDataLabels],
       type: 'horizontalBar',
       data: {
-        labels: ['FLY', 'STAY', 'DRIVE', 'LOOK',
-          'RIDE'],
+        labels: ['Flight', 'Check-in', 'Drive', 'Train',
+          'Taxi','Bus','Ship','Sightseeing','Restaurant'],
         datasets: [{
-          data: [400, 300, 200, 160 , 100],
+          data: [...moneyChartData],
           backgroundColor: '#ffffff',
           hoverBackgroundColor: '#ffffff',
           anchor: 'start'
@@ -121,13 +264,16 @@ export default class StatisticsView extends AbstractSmartView {
         }
       }
     });
+
+    const typeCyrent=  this.#dataFortypeChart();
     const transportChart = new Chart(transportCtx, {
       plugins: [ChartDataLabels],
       type: 'horizontalBar',
       data: {
-        labels: ['FLY', 'DRIVE', 'RIDE'],
+        labels: ['Flight', 'Check-in', 'Drive', 'Train',
+          'Taxi','Bus','Ship','Sightseeing','Restaurant'],
         datasets: [{
-          data: [4, 2, 1],
+          data: [...typeCyrent],
           backgroundColor: '#ffffff',
           hoverBackgroundColor: '#ffffff',
           anchor: 'start'
