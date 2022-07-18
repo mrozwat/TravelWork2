@@ -54,12 +54,14 @@ export default  class editElement extends AbstractSmartView{
 
      offersList.forEach((element)=>{if(element.type=== this._dataCondition.type){this._dataCondition.checkedOffers.push(...element.offers);} else {}});
 
-     for (let i=0; i<this._dataCondition.checkedOffers.length;i++){
-       for (let k=0;k<this.#data.offers.length;k++){
-         if (this._dataCondition.checkedOffers[i].id===data.offers[k].id) { this._dataCondition.checkedOffers[i].ceheck=true;}
-         else{ this._dataCondition.checkedOffers[i].ceheck=false;}
-       }
-     }
+     //КОД от моков в проде не нужен
+    //  for (let i=0; i<this._dataCondition.checkedOffers.length;i++){
+    //    for (let k=0;k<this.#data.offers.length;k++){
+    //      if (this._dataCondition.checkedOffers[i].id===data.offers[k].id) { this._dataCondition.checkedOffers[i].ceheck=true;}
+    //      else{ this._dataCondition.checkedOffers[i].ceheck=false;}
+    //    }
+    //  } 
+
 
      this.#descriptionList.forEach((el)=>{if(el.name===this._dataCondition.name){this._dataCondition.description=el.description;
        this._dataCondition.pictures.push(...el.pictures);

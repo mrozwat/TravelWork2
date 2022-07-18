@@ -1,13 +1,13 @@
 import AbstractObservable from './abstcractObserver';
 import { UpdateType } from '../util/util';
 const dayjs = require('dayjs');
-
+import { offersList,descriptionList } from '../mock/test-data.js';
 
 export default class PointModel extends AbstractObservable {
 
     #points = [];//sdelati prosto masiv
     #apiService = null;
-
+    #descriptionList=descriptionList;
     constructor(apiService) {
       super();
       this.#apiService = apiService;
@@ -16,6 +16,7 @@ export default class PointModel extends AbstractObservable {
     }
 
     #adaptToClient = (point) => {
+
       const adaptedTask = {...point,
         date_from: point['date_from'] !== null ? new Date(point['date_from']) : point['date_from'], // На клиенте дата хранится как экземпляр Date
         date_to: point['date_to'] !== null ? new Date(point['date_to']) : point['date_to'],
@@ -35,8 +36,6 @@ export default class PointModel extends AbstractObservable {
       }
 
       this._notify(UpdateType.INIT);
-      console.log('notify')
-      console.log(this.#points)
     }
 
 
@@ -49,18 +48,27 @@ export default class PointModel extends AbstractObservable {
       return this.#points;
     }
 
-    updateTask = (updateType, update) => {
-      const index = this.#points.findIndex((task) => task.id === update.id);
-
+    updateTask = async(updateType, update) => {
+      const index = this.#points.findIndex((point) => point.id === update.id);
       if (index === -1) {
         throw new Error('Can\'t update unexisting task');
       }
-      this.#points = [
-        ...this.#points.slice(0, index),
-        update,
-        ...this.#points.slice(index + 1),
-      ];
-      this._notify(updateType, update);
+
+      try {
+
+        const response = await this.#apiService.updateTask(this.#apiService.adaptToServer(update));
+
+        const updatedTask = this.#adaptToClient(response);
+        this.#points = [
+          ...this.#points.slice(0, index),
+          updatedTask,
+          ...this.#points.slice(index + 1),
+        ];
+        this._notify(updateType, updatedTask);
+        console.log(updatedTask);
+      } catch(err) {
+        throw new Error('Can\'t update task');
+      }
     }
 
     addTask = (updateType, update) => {

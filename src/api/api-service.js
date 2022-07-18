@@ -17,11 +17,11 @@ export default class ApiService {
         .then(ApiService.parseResponse);
     }
 
-    updateTask = async (points) => {
+    updateTask = async (point) => {
       const response = await this.#load({
-        url: `points/${Point.id}`,
+        url: `points/${point.id}`,
         method: Method.PUT,
-        body: JSON.stringify(Point),
+        body: JSON.stringify(point),
         headers: new Headers({'Content-Type': 'application/json'}),
       });
 
@@ -63,12 +63,12 @@ export default class ApiService {
       throw err;
     }
 
-    #adaptToServer = (point) => {
+    adaptToServer = (point) => {
       const adaptedPoints = {...point,
-        'date_from': point.dueDate instanceof Date ? point.dueDate.toISOString() : null, // На сервере дата хранится в ISO формате
-        'date_to': point.dueDate instanceof Date ? point.dueDate.toISOString() : null,
+        'date_from': point.date_from instanceof Date ? point.date_from.toISOString() : null, // На сервере дата хранится в ISO формате
+        'date_to': point.date_to instanceof Date ? point.date_to.toISOString() : null,
+        'type': 'taxi'
       };
-
 
       return adaptedPoints;
     }
