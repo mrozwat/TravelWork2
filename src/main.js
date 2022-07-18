@@ -4,7 +4,7 @@ import filtersElement  from '../src/view/filters-Template.js';
 import{RenderPosition,renderElement} from '../src/render/render.js';
 import FilterPresenter from './presenter/filter-presenter.js';
 import FilterModel from './model/filterModel.js';
-import {MenuItem} from './util/util';
+import {MenuItem, remove} from './util/util';
 import menuElement from './view/menuTemplate.js';
 import StatisticsView from './view/statistics-view.js';
 
@@ -23,39 +23,49 @@ renderElement(filterBlock, siteMenuComponent ,RenderPosition.BEFOREEND);
 
 const BoardPresenterInstans =  new BoardPresenter (bordContainer,pointModel,filtreModele);
 const filterPresenter = new FilterPresenter(filterBlock, filtreModele, pointModel);
-
+const button =document.querySelector('.trip-main__event-add-btn');
+let stats = null;
+let cyrentpage=MenuItem.POINTS;
+const typebt = document.querySelector('#table');
+const statsbt = document.querySelector('#stats');
 
 const handleSiteMenuClick = (menuItem) => {
   switch (menuItem) {
     case MenuItem.POINTS:
-      filterPresenter.init();
-      BoardPresenterInstans.init();
-      // BoardPresenterInstans.init();
-      // Показать фильтры
-      // Показать доску
-      // Скрыть статистику
-      break;
+      if(cyrentpage===MenuItem.STATISTICS){
+        remove(stats);
+        stats =null;
+        filterPresenter.init();
+        BoardPresenterInstans.init();
+        button.classList.remove('visually-hidden');
+        typebt.classList.add('trip-tabs__btn--active');
+        statsbt.classList.remove('trip-tabs__btn--active');
+        cyrentpage =MenuItem.POINTS;
+        break;} else {return;}
     case MenuItem.STATISTICS:
-      filterPresenter.destroy();
-      BoardPresenterInstans.destroy();
-      // Скрыть фильтры
-      // Скрыть доску
-      // Показать статистику
-      break;
+      if(cyrentpage===MenuItem.POINTS){
+        filterPresenter.destroy();
+        BoardPresenterInstans.destroy();
+        stats = new StatisticsView(pointModel.points);
+        renderElement(bordContainer,stats,RenderPosition.BEFOREEND);
+        stats.init();
+        button.classList.add('visually-hidden');
+        typebt.classList.remove('trip-tabs__btn--active');
+        statsbt.classList.add('trip-tabs__btn--active');
+        cyrentpage =MenuItem.STATISTICS;
+        break;} else {}
   }
 };
 
 siteMenuComponent.setMenuClickHandler(handleSiteMenuClick);
 
 //VERNUT
-// filterPresenter.init();
-// BoardPresenterInstans.init();
-const stats = new StatisticsView(pointModel.points);
-renderElement(bordContainer,stats,RenderPosition.BEFOREEND);
-stats.init();
+filterPresenter.init();
+BoardPresenterInstans.init();
+
 
 //add point
-document.querySelector('.trip-main__event-add-btn').addEventListener('click', (evt) => {
+button.addEventListener('click', (evt) => {
   evt.preventDefault();
   BoardPresenterInstans.createTask();
 

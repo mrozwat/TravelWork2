@@ -22,7 +22,6 @@ export default  class menuElement extends AbstractElement {
   #menuClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.menuClick(evt.target.dataset.type);
-    console.log(evt.target.dataset.type)
   }
 
 }

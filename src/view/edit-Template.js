@@ -8,6 +8,7 @@ const dayjs = require('dayjs');
 import flatpickr from 'flatpickr';
 import '../../node_modules/flatpickr/dist/flatpickr.min.css';
 import he from 'he';
+import { ucFirst } from '../util/util.js';
 
 //element.querySelector('input[name="event-type"]:checked').value;
 
@@ -90,8 +91,8 @@ export default  class editElement extends AbstractSmartView{
     let price;
     let dateTo;
     let dateFrom;
-    if(this._dataCondition.date_to) {dateTo=this._dataCondition.date_to;} else {dateTo=this.#data.date_to;}
-    if(this._dataCondition.date_from) {dateFrom=this._dataCondition.date_from;} else {dateFrom=this.#data.date_from;}
+    if(this._dataCondition.date_to) {dateTo=this._dataCondition.date_to;} else {dateTo=dayjs(this.#data.date_to).toDate();}
+    if(this._dataCondition.date_from) {dateFrom=this._dataCondition.date_from;} else {dateFrom=dayjs(this.#data.date_from).toDate();}
     if(this._dataCondition.isFavorite) {favorite=this._dataCondition.isFavorite;} else {favorite=this.#data.is_favorite;}
     if(this._dataCondition.price) {price=this._dataCondition.price;} else {price=this.#data.base_price;}
     const rawData= {
@@ -104,7 +105,7 @@ export default  class editElement extends AbstractSmartView{
       },
       'id':this._dataCondition.id,
       'offers': ofer,
-      'type':this._dataCondition.type,
+      'type':ucFirst(this._dataCondition.type),
       'is_favorite':favorite
     };
     return rawData;

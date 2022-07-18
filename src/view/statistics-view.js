@@ -36,7 +36,10 @@ export default class StatisticsView extends AbstractSmartView {
     return createStatisticsTemplate(this._data);
   }
 
-  init =()=>{this.#setCharts();}
+  init =()=>{
+    const moneyChartData = this.#dataForMoney();
+    const typeCyrent=  this.#dataFortypeChart();
+    this.#setCharts(moneyChartData,typeCyrent);}
 
   removeElement = () => {
     super.removeElement();
@@ -45,34 +48,36 @@ export default class StatisticsView extends AbstractSmartView {
   }
 
   #dataForMoney =() =>{
-
+console.log(this._data)
     const FlightData= [];
     this._data.forEach((element) => {
       if (element.type ==='Flight')
       {FlightData.push(element.base_price);}
     });
-    const moneyResult = FlightData.reduce((sum, elem) => sum + elem, 0);
+    let moneyResult = FlightData.reduce((sum, elem) => sum + elem, 0);
+    console.log(FlightData)
+    console.log(moneyResult)
 
     const StayData= [];
     this._data.forEach((element) => {
       if (element.type ==='Check-in')
       {StayData.push(element.base_price);}
     });
-    const stayResult = StayData.reduce((sum, elem) => sum + elem, 0);
+    let stayResult = StayData.reduce((sum, elem) => sum + elem, 0);
 
     const driveData= [];
     this._data.forEach((element) => {
       if (element.type ==='Drive')
       {driveData.push(element.base_price);}
     });
-    const driveResult = driveData.reduce((sum, elem) => sum + elem, 0);
+    let driveResult = driveData.reduce((sum, elem) => sum + elem, 0);
 
     const rideData= [];
     this._data.forEach((element) => {
       if (element.type ==='Train')
       {rideData.push(element.base_price);}
     });
-    const rideResult = rideData.reduce((sum, elem) => sum + elem, 0);
+    let rideResult = rideData.reduce((sum, elem) => sum + elem, 0);
 
 
     const TaxiData= [];
@@ -80,38 +85,38 @@ export default class StatisticsView extends AbstractSmartView {
       if (element.type ==='Taxi')
       {TaxiData.push(element.base_price);}
     });
-    const taxiResult = TaxiData.reduce((sum, elem) => sum + elem, 0);
+    let taxiResult = TaxiData.reduce((sum, elem) => sum + elem, 0);
 
     const BusData= [];
     this._data.forEach((element) => {
       if (element.type ==='Bus')
       {BusData.push(element.base_price);}
     });
-    const busResult = BusData.reduce((sum, elem) => sum + elem, 0);
+    let busResult = BusData.reduce((sum, elem) => sum + elem, 0);
 
     const shipData= [];
     this._data.forEach((element) => {
       if (element.type ==='Ship')
       {shipData.push(element.base_price);}
     });
-    const shipResult = shipData.reduce((sum, elem) => sum + elem, 0);
+    let shipResult = shipData.reduce((sum, elem) => sum + elem, 0);
 
     const lookData= [];
     this._data.forEach((element) => {
       if (element.type ==='Sightseeing')
       {lookData.push(element.base_price);}
     });
-    const lookResult = lookData.reduce((sum, elem) => sum + elem, 0);
+    let lookResult = lookData.reduce((sum, elem) => sum + elem, 0);
 
     const restoranData= [];
     this._data.forEach((element) => {
       if (element.type ==='Restaurant')
       {restoranData.push(element.base_price);}
     });
-    const restoranResult = restoranData.reduce((sum, elem) => sum + elem, 0);
+    let restoranResult = restoranData.reduce((sum, elem) => sum + elem, 0);
 
 
-    const finalyStats =[moneyResult,stayResult,driveResult,rideResult,taxiResult,busResult,shipResult,lookResult,restoranResult];
+    let finalyStats =[moneyResult,stayResult,driveResult,rideResult,taxiResult,busResult,shipResult,lookResult,restoranResult];
     return finalyStats;
   }
 
@@ -185,20 +190,17 @@ export default class StatisticsView extends AbstractSmartView {
    return finalyStats;
  }
 
-  #setCharts = () => {
+  #setCharts = (moneyChartData,typeCyrent) => {
     const moneyCtx =document.querySelector('#money');
     const transportCtx =document.querySelector('#type');
     const timeSpendCtx =document.querySelector('#time');
-    this.#dataForMoney();
     // Рассчитаем высоту канваса в зависимости от того, сколько данных в него будет передаваться
     const BAR_HEIGHT = 55;
     moneyCtx.width = BAR_HEIGHT * 6;
     transportCtx.width = BAR_HEIGHT * 4;
     timeSpendCtx.width = BAR_HEIGHT * 4;
 
-    const moneyChartData = this.#dataForMoney();
-
-
+    
     const moneyChart = new Chart(moneyCtx, {
       plugins: [ChartDataLabels],
       type: 'horizontalBar',
@@ -265,7 +267,7 @@ export default class StatisticsView extends AbstractSmartView {
       }
     });
 
-    const typeCyrent=  this.#dataFortypeChart();
+   
     const transportChart = new Chart(transportCtx, {
       plugins: [ChartDataLabels],
       type: 'horizontalBar',
