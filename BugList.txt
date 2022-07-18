@@ -1,30 +1,5 @@
-1)некоректное оттображение типа маршрута а edit
-2) favorit button didnt work
+1)offers не коректно при создании 
 3) fllatpicker не срабатывает на time change
-
-#sortPoints = (sortTypeC) => {
-       switch (sortTypeC) {
-         case sortType.DAY:
-
-           this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.date_from - a.date_from);
-
-           break;
-
-         case sortType.DIFERENT:
-           this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.diferent - a.diferent);
-           break;
-
-         case sortType.PRICE:
-
-           this.#dataPoints =this.#dataPoints.slice().sort((a, b) => b.base_price - a.base_price);
-
-           break;
-
-         default:
-           //navsyki slycai
-           this.#dataPoints = [...this.#sourcedpoints];
-       }
-
-       this.#currentSortType = sortTypeC;
-     }
-
+4) не раьотает сортировка по day
+5) не коректная общаяя стоимость(не считаються оферы)
+6) не коректно отображаеться маргрут при смене сортировки 
