@@ -237,7 +237,6 @@ export default  class editElement extends AbstractSmartView{
   });
   delete this._dataCondition.timeFrom;
   delete this._dataCondition.timeTo;
-  console.log(this._dataCondition);
 
 }
 
