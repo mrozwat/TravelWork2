@@ -1,15 +1,20 @@
 import BoardPresenter from './presenter/bord-presenter.js';
 import PointModel from './model/points-model.js';
-import filtersElement  from '../src/view/filters-Template.js';
 import{RenderPosition,renderElement} from '../src/render/render.js';
 import FilterPresenter from './presenter/filter-presenter.js';
 import FilterModel from './model/filterModel.js';
 import {MenuItem, remove} from './util/util';
 import menuElement from './view/menuTemplate.js';
 import StatisticsView from './view/statistics-view.js';
+import ApiService from './api/api-service';
+
+
+//api
+const AUTHORIZATION = 'Basic hasdwq213as'; //prosto testovui proect
+const END_POINT = 'https://16.ecmascript.pages.academy/big-trip';
 
 //  Model
-const pointModel = new PointModel();
+const pointModel = new PointModel(new ApiService(END_POINT, AUTHORIZATION));
 const filtreModele = new FilterModel();
 const siteMenuComponent  = new menuElement();
 
@@ -18,14 +23,13 @@ const bordContainer =document.querySelector('.trip-events');
 const filterBlock =document.querySelector('.trip-controls__filters');
 
 // render function
-renderElement(filterBlock, siteMenuComponent ,RenderPosition.BEFOREEND);
 
 
 const BoardPresenterInstans =  new BoardPresenter (bordContainer,pointModel,filtreModele);
 const filterPresenter = new FilterPresenter(filterBlock, filtreModele, pointModel);
 const button =document.querySelector('.trip-main__event-add-btn');
 let stats = null;
-let cyrentpage=MenuItem.POINTS;
+let cyrentpage=null;
 const typebt = document.querySelector('#table');
 const statsbt = document.querySelector('#stats');
 
@@ -60,7 +64,7 @@ const handleSiteMenuClick = (menuItem) => {
 siteMenuComponent.setMenuClickHandler(handleSiteMenuClick);
 
 //VERNUT
-filterPresenter.init();
+
 BoardPresenterInstans.init();
 
 
@@ -69,4 +73,13 @@ button.addEventListener('click', (evt) => {
   evt.preventDefault();
   BoardPresenterInstans.createTask();
 
+});
+
+
+pointModel.init().finally(() => {
+  
+  renderElement(filterBlock, siteMenuComponent ,RenderPosition.BEFOREEND);
+  siteMenuComponent.setMenuClickHandler(handleSiteMenuClick);
+  filterPresenter.init();
+  
 });

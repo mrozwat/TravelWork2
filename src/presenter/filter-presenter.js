@@ -48,7 +48,7 @@ export default class FilterPresenter {
     this.#filterModel.addObserver(this.#handleModelEvent);
 
     if (prevFilterComponent === null) {
-      renderElement(this.#filterContainer, this.#filterComponent, RenderPosition.BEFOREEND);
+      renderElement(this.#filterContainer, this.#filterComponent, RenderPosition.AFTEREND);
       return;
     }
 

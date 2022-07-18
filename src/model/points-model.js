@@ -1,15 +1,44 @@
 import AbstractObservable from './abstcractObserver';
-import { testData } from '../mock/test-data.js';
-const data =testData;
+import { UpdateType } from '../util/util';
 const dayjs = require('dayjs');
-console.log(data);
+
 
 export default class PointModel extends AbstractObservable {
-    #points = [...data];//sdelati prosto masiv
 
-    set points(points) {
-      this.#points = [...points];
+    #points = [];//sdelati prosto masiv
+    #apiService = null;
+
+    constructor(apiService) {
+      super();
+      this.#apiService = apiService;
+
+
     }
+
+    #adaptToClient = (point) => {
+      const adaptedTask = {...point,
+        date_from: point['date_from'] !== null ? new Date(point['date_from']) : point['date_from'], // На клиенте дата хранится как экземпляр Date
+        date_to: point['date_to'] !== null ? new Date(point['date_to']) : point['date_to'],
+      };
+
+
+      return adaptedTask;
+    }
+
+
+    init = async () => {
+      try {
+        const points = await this.#apiService.points;
+        this.#points = points.map(this.#adaptToClient);
+      } catch(err) {
+        this.#points = [];
+      }
+
+      this._notify(UpdateType.INIT);
+      console.log('notify')
+      console.log(this.#points)
+    }
+
 
     get points() {
       this.#points.forEach((element) =>{
