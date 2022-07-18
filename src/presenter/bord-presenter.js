@@ -6,6 +6,7 @@ import TravelPontPresenter from './task-presenter.js';
 import { sortType,UpdateType,UserAction,remove,FilterType} from '../util/util.js';
 import {filter} from '../util/filter';
 import PointNewPresenter from './point-New-Presenter';
+import LoadingView from '../view/loading.js';
 
 // render(addNewBlock,addNew(),RenderPosition.BEFOREEND); addnew
 
@@ -20,9 +21,11 @@ export default class BoardPresenter {
     #currentSortType = sortType.DAY;
     #PointModel= null;
     #noPoint = new welcomeMesage()
+    #loadingComponent = new LoadingView();
     #TripInfo=null;
     #filterModel = null;
     #pointNewPresenter = null;
+    #isLoading = true;
     constructor(boardContainer,pointModel,filtreModel) {
       this.#filterModel = filtreModel;
       this.#boardContainer = boardContainer;
@@ -49,6 +52,7 @@ export default class BoardPresenter {
 
       init = () => {
         // Метод для инициализации (начала работы) модуля
+        this.points
         this.#renderBoard();
       }
 
@@ -83,8 +87,14 @@ export default class BoardPresenter {
 
       #renderBoard = () => {
         // Метод для инициализации (начала работы) модуля
+        if (this.#isLoading) {
+          this.#renderLoading();
+          return;
+        }
+
         const points = this.points;
-        if (points.length===0) {this.#renderWelcomeMessage();}
+    
+       if  (points.length===0) {this.#renderWelcomeMessage();}
         this.#renderInfoAbautTrip();
         this.#renderSortElement();
         this.#renderPoints();
@@ -126,6 +136,11 @@ export default class BoardPresenter {
             this.#clearBoard({resetSortType: true});
             this.#renderBoard();
             break;
+          case UpdateType.INIT:
+            this.#isLoading = false;
+            remove(this.#loadingComponent);
+            this.#renderBoard();
+            break;
         }
       }
 
@@ -146,6 +161,7 @@ export default class BoardPresenter {
        remove(this.#sortComponent);
        remove(this.#noPoint);
        remove(this.#TripInfo);
+       remove(this.#loadingComponent);
 
        if (resetSortType) {
          this.#currentSortType = sortType.DAY;
@@ -161,6 +177,10 @@ export default class BoardPresenter {
        this.#clearBoard({resetSortType: true});
        this.#PointModel.removeObserver(this.#handleModelEvent);
        this.#filterModel.removeObserver(this.#handleModelEvent);
+     }
+
+     #renderLoading = () => {
+       renderElement(this.#boardContainer, this.#loadingComponent, RenderPosition.AFTERBEGIN);
      }
 }
 
