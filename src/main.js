@@ -27,7 +27,8 @@ const filterBlock =document.querySelector('.trip-controls__filters');
 
 const BoardPresenterInstans =  new BoardPresenter (bordContainer,pointModel,filtreModele);
 const filterPresenter = new FilterPresenter(filterBlock, filtreModele, pointModel);
-const button =document.querySelector('.trip-main__event-add-btn');
+const addbutton =document.querySelector('.trip-main__event-add-btn');
+addbutton.disabled =true;
 let stats = null;
 let cyrentpage=null;
 const typebt = document.querySelector('#table');
@@ -69,7 +70,7 @@ BoardPresenterInstans.init();
 
 
 //add point
-button.addEventListener('click', (evt) => {
+addbutton.addEventListener('click', (evt) => {
   evt.preventDefault();
   BoardPresenterInstans.createTask();
 
@@ -77,9 +78,8 @@ button.addEventListener('click', (evt) => {
 
 
 pointModel.init().finally(() => {
-  
+  addbutton.disabled =false;
   renderElement(filterBlock, siteMenuComponent ,RenderPosition.BEFOREEND);
   siteMenuComponent.setMenuClickHandler(handleSiteMenuClick);
   filterPresenter.init();
-  
 });
