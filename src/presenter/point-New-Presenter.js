@@ -55,15 +55,31 @@ export default class PointNewPresenter {
     document.removeEventListener('keydown', this.#escKeyDownHandler);
   }
 
+
+  setSaving = () => {
+    this.#pointEditComponent.updateData({
+      isDisabled: true,
+    });
+  }
+
   #handleFormSubmit = (point) => {
     this.#changeData(
       UserAction.ADD_POINT,
       UpdateType.MAJOR,
-      // Пока у нас нет сервера, который бы после сохранения
-      // выдывал честный id задачи, нам нужно позаботиться об этом самим
-      {id: nanoid(), ...point},
+      point,
     );
-    this.destroy();
+  }
+
+  setAborting = () => {
+    const resetFormState = () => {
+      this.#pointEditComponent.updateData({
+        isDisabled: false,
+        isSaving: false,
+        isDeleting: false,
+      });
+    };
+
+    this.#pointEditComponent.shake(resetFormState);
   }
 
   #handleDeleteClick = () => {

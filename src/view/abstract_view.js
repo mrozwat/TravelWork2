@@ -1,5 +1,8 @@
 import { createElement } from '../render/render';
 
+
+const SHAKE_ANIMATION_TIMEOUT = 600;
+
 export default class AbstractElement {
 #element=null;
 _callback = {};
@@ -22,4 +25,13 @@ get template() {
 removeElement() {
   this.#element = null;
 }
+
+shake(callback) {
+  this.element.style.animation = `shake ${SHAKE_ANIMATION_TIMEOUT / 1000}s`;
+  setTimeout(() => {
+    this.element.style.animation = '';
+    callback();
+  }, SHAKE_ANIMATION_TIMEOUT);
+}
+
 }

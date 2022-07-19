@@ -71,28 +71,38 @@ export default class PointModel extends AbstractObservable {
       }
     }
 
-    addTask = (updateType, update) => {
-      this.#points = [
-        update,
-        ...this.#points,
-      ];
-
-      this._notify(updateType, update);
+    addTask = async (updateType, update) => {
+      try {
+        const response = await this.#apiService.addPoint(update);
+        const newPoint = this.#adaptToClient(response);
+        this.#points = [newPoint, ...this.#points];
+        this._notify(updateType, newPoint);
+      } catch(err) {
+        throw new Error('Can\'t add task');}
     }
 
-    deleteTask = (updateType, update) => {
-      const index = this.#points.findIndex((task) => task.id === update.id);
 
+    deleteTask = async(updateType, update) => {
+      const index = this.#points.findIndex((task) => task.id === update.id);
+      console.log(updateType)
+      console.log(update)
       if (index === -1) {
         throw new Error('Can\'t delete unexisting task');
       }
 
-      this.#points = [
-        ...this.#points.slice(0, index),
-        ...this.#points.slice(index + 1),
-      ];
-
-      this._notify(updateType);
-    }
+      try {
+        // Обратите внимание, метод удаления задачи на сервере
+        // ничего не возвращает. Это и верно,
+        // ведь что можно вернуть при удалении задачи?
+        await this.#apiService.deleteTask(update);
+        console.log('error')
+        this.#points = [
+          ...this.#points.slice(0, index),
+          ...this.#points.slice(index + 1),
+        ];
+        this._notify(updateType);
+      } catch(err) {
+        throw new Error('Can\'t delete task');
+      }
+    };
 }
-

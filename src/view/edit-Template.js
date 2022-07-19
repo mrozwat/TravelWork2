@@ -17,6 +17,7 @@ export default  class editElement extends AbstractSmartView{
   #offersList=null;
   #descriptionList=null;
   #datepicker = null;
+  isDisabled=false;
   constructor(data){
     super();
     this.#data=data;
@@ -38,8 +39,7 @@ export default  class editElement extends AbstractSmartView{
   }
 
    #setConditionData =(data)=>{
-
-
+    this.isDisabled=false;
      this._dataCondition= {
        'name': data.destination.name,
        'type':data.type.toLowerCase().toString(),
@@ -72,7 +72,7 @@ export default  class editElement extends AbstractSmartView{
    }
 
    get template () {
-     return edit(this._dataCondition,this.#descriptionList);
+     return edit(this._dataCondition,this.#descriptionList,this.isDisabled);
    }
 
   setFormSubmitHandler = (callback) => {
@@ -88,7 +88,6 @@ export default  class editElement extends AbstractSmartView{
   #parseToRawData =()=>{
     const ofer = [];
     this._dataCondition.checkedOffers.forEach((data)=>{if(data.ceheck===true){ofer.push(data);}});
-    // ofer.forEach((data)=>{data.ceheck=true;});
     let favorite;
     let price;
     let dateTo;
@@ -261,7 +260,7 @@ setDeleteClickHandler = (callback) => {
 }
 
 
-function edit (datacondition,allCitys){
+function edit (datacondition,allCitys,isDisabled){
   const editHtml =`<form class="event event--edit" action="#" method="post" id="editform">
 <header class="event__header">
   <div class="event__type-wrapper">
@@ -304,8 +303,8 @@ function edit (datacondition,allCitys){
     <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${datacondition.price}">
   </div>
 
-  <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
-  <button class="event__reset-btn" type="reset">Delete</button>
+  <button class="event__save-btn  btn  btn--blue" type="submit" ${isDisabled ? 'disabled' : ''}>${isDisabled ? 'Saving...' : 'Save'}</button>
+  <button class="event__reset-btn" type="reset"${isDisabled ? 'disabled' : ''}>${isDisabled ? 'Deleting...' : 'Delete'}</button>
   <button class="event__rollup-btn" type="button">
     <span class="visually-hidden">Open event</span>
   </button>

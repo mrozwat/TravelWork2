@@ -1,6 +1,8 @@
 const Method = {
   GET: 'GET',
   PUT: 'PUT',
+  POST: 'POST',
+  DELETE: 'DELETE',
 };
 
 export default class ApiService {
@@ -67,9 +69,31 @@ export default class ApiService {
       const adaptedPoints = {...point,
         'date_from': point.date_from instanceof Date ? point.date_from.toISOString() : null, // На сервере дата хранится в ISO формате
         'date_to': point.date_to instanceof Date ? point.date_to.toISOString() : null,
-        'type': 'taxi'
+        'type': point.type  ? point.type.toLowerCase() : null,
       };
 
       return adaptedPoints;
+    }
+
+    addPoint = async (point) => {
+      const response = await this.#load({
+        url: 'Points',
+        method: Method.POST,
+        body: JSON.stringify(this.adaptToServer(point)),
+        headers: new Headers({'Content-Type': 'application/json'}),
+      });
+
+      const parsedResponse = await ApiService.parseResponse(response);
+
+      return parsedResponse;
+    }
+
+    deleteTask = async (point) => {
+      const response = await this.#load({
+        url: `Points/${point.id}`,
+        method: Method.DELETE,
+      });
+
+      return response;
     }
 }

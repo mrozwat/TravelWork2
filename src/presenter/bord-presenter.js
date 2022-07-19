@@ -2,10 +2,10 @@ import{RenderPosition,renderElement} from '../render/render.js';
 import SortElement  from '../view/sort-Template.js';
 import  InfoAbautTrip from '../view/info-about-trip.js';
 import welcomeMesage from '../view/welcomeMesage.js';
-import TravelPontPresenter from './task-presenter.js';
+import TravelPontPresenter, {State } from './task-presenter.js';
 import { sortType,UpdateType,UserAction,remove,FilterType} from '../util/util.js';
 import {filter} from '../util/filter';
-import PointNewPresenter from './point-New-Presenter';
+import PointNewPresenter  from './point-New-Presenter';
 import LoadingView from '../view/loading.js';
 
 // render(addNewBlock,addNew(),RenderPosition.BEFOREEND); addnew
@@ -52,7 +52,7 @@ export default class BoardPresenter {
 
       init = () => {
         // Метод для инициализации (начала работы) модуля
-        this.points
+        this.points;
         this.#renderBoard();
       }
 
@@ -93,8 +93,8 @@ export default class BoardPresenter {
         }
 
         const points = this.points;
-    
-       if  (points.length===0) {this.#renderWelcomeMessage();}
+
+        if  (points.length===0) {this.#renderWelcomeMessage();}
         this.#renderInfoAbautTrip();
         this.#renderSortElement();
         this.#renderPoints();
@@ -109,16 +109,31 @@ export default class BoardPresenter {
         this.#pointPresenter.forEach((presenter) => presenter.resetView());
       }
 
-      #handleViewAction = (actionType, updateType, update) => {
+      #handleViewAction = async  (actionType, updateType, update) => {
         switch (actionType) {
           case UserAction.UPDATE_POINT:
-            this.#PointModel.updateTask(updateType, update);
+            this.#pointPresenter.get(update.id).setViewState(State.SAVING);
+            try {
+              await this.#PointModel.updateTask(updateType, update);
+            } catch(err) {
+              this.#pointPresenter.get(update.id).setViewState(State.ABORTING);
+            }
             break;
           case UserAction.ADD_POINT:
-            this.#PointModel.addTask(updateType, update);
+            this.#pointNewPresenter.setSaving();
+            try {
+              await this.#PointModel.addTask(updateType, update);
+            } catch(err) {
+              this.#pointNewPresenter.setAborting();
+            }
             break;
           case UserAction.DELETE_POINT:
-            this.#PointModel.deleteTask(updateType, update);
+            this.#pointPresenter.get(update.id).setViewState(State.DELETING);
+            try {
+              await this.#PointModel.deleteTask(updateType, update);
+            } catch(err) {
+              this.#pointPresenter.get(update.id).setViewState(State.ABORTING);
+            }
             break;
         }
       }
